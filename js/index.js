@@ -28,5 +28,18 @@ $(document).ready(function(){
                         console.log(data);
                     }    });
    });
+  $("#lout").click(function(){
+   $.ajax({
+            type: "POST",
+            url: "controller/logout.php",
+            success: function(data) {
+              console.log(data);
+              window.location.assign('index.php');
+            },
+            error: function(data) {
+              console.log(data);
+            }    
+        });
+   });
 });
  

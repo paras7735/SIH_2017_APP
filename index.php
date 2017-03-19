@@ -17,6 +17,7 @@ echo $_SESSION['uname'];
 	<script src="https://www.gstatic.com/firebasejs/3.7.2/firebase.js"></script>
 </head>
 <body>
+<button id="lout">Logout</button>
 <script type="text/javascript" src="js/index.js"></script>
 </body>
 </html>
