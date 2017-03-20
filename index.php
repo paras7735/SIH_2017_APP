@@ -15,10 +15,11 @@ echo $_SESSION['uname'];
 <html>
 <head>
 	<title></title>
+  <script src="https://www.gstatic.com/firebasejs/3.7.2/firebase.js"></script>
 	<script src="js/jquery.min.js"></script>
 	<script src="js/materialize.min.js"></script>
 	<link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
-	<script src="https://www.gstatic.com/firebasejs/3.7.2/firebase.js"></script>
+  
 	<link rel="stylesheet" href="css/index.css">
 </head>
 <body>
@@ -57,7 +58,8 @@ echo $_SESSION['uname'];
     </form>
 
 </div>
-<button class="btn" id="submitread">Submit</button>
+<button class="btn" id="submitread">Update</button>
+<button class="btn" id="dbupdate">dbupdate</button>
 <a class="waves-effect waves-light btn" id="lout">Logout</a>
 
 <script type="text/javascript" src="js/index.js"></script>

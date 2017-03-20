@@ -9,7 +9,7 @@ if( isset($_POST["level"]) && isset($_POST["parent"]) && isset($_POST["level_ind
 	$quality=$_POST["quality"];
 	$quantity=$_POST["quantity"];
 	$result =$user->enter_readings($level,$parent,$level_index,$home,$quality,$quantity);
-	print_r($result);
+	print($result);
 	}
 	else {echo "string";}
 	

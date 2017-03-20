@@ -1,4 +1,7 @@
 $(document).ready(function(){
+
+
+  // Initialize Firebase
   var config = {
     apiKey: "AIzaSyBZ1nKewxNC_s53gyd-KSdB7gWseVf1Xmg",
     authDomain: "sihfinalsiitkgp-5e9c0.firebaseapp.com",
@@ -7,6 +10,9 @@ $(document).ready(function(){
     messagingSenderId: "1027182829065"
   };
   firebase.initializeApp(config);
+
+
+ 
   console.log(firebase);
   $("#submit").click(function(){
         uname = $("#uname").val();
@@ -28,6 +34,43 @@ $(document).ready(function(){
                         console.log(data);
                     }    });
    });
+  var arr;
+   $("#dbupdate").click(function(){
+    $.ajax({
+            type: "POST",
+            url: "controller/dbupdate.php",
+            success: function(data) {
+              arr=jQuery.parseJSON(data);
+              // console.log(arr);
+              
+              
+              
+              
+              
+           var playersRef = firebase.database().ref("table/");
+
+  var nodes = {};
+
+for (var i = 1; i <=arr.length; ++i) {
+    nodes[i-1] = { "Id": arr[i-1].id, level: arr[i-1].level, level_index:arr[i-1].level_index , quality:arr[i-1].quality , quantity:arr[i-1].quantity , parent:arr[i-1].parent 
+, is_home:arr[i-1].is_home, updated_at:arr[i-1].updated_at  }}
+
+
+
+    playersRef.set({
+   nodes
+   });
+    console.log(playersRef);
+
+
+
+            },
+            error: function(result) {
+          console.log('kjbklj');
+                  }  
+          });
+
+   });
   $("#submitread").click(function(){
         level = $("#level").val();
         parent = $("#parent").val();
@@ -48,12 +91,14 @@ $(document).ready(function(){
             },
             dataType: "JSON",
             success: function(data) {
+              
               console.log(data);
               Materialize.toast('Data Updated', 5000);
               $("#form1").trigger("reset");
+          
             },
-            error: function(data) {
-              console.log(data);
+            error: function(response) {
+              console.log(response);
             }  
           });
    });
