@@ -13,6 +13,7 @@ Class User {
             $r=$query->fetch(PDO::FETCH_ASSOC);
             $_SESSION['uname']=$r['Username'];
             $_SESSION['pass']=$r['Password'];
+            $_SESSION['position']=$r['position'];
             
             return true;            
         } catch (PDOException $e) {

@@ -5,8 +5,8 @@ require_once 'connect.php';
 if($user->is_not_logged_in()) {
 	header('Location: login.php');
 }
-else if($user->is_logged_in() && $_SESSION['position']==1){
-	header('Location: supplier.php');
+else if($user->is_logged_in() && $_SESSION['position']==2){
+	header('Location: index.php');
 }
 else if($user->is_logged_in() && $_SESSION['position']==0){
 	header('Location: user.php');
