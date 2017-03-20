@@ -3,9 +3,9 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 18, 2017 at 12:46 AM
--- Server version: 10.1.13-MariaDB
--- PHP Version: 5.6.21
+-- Generation Time: Mar 20, 2017 at 09:46 AM
+-- Server version: 10.1.10-MariaDB
+-- PHP Version: 7.0.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -56,16 +56,18 @@ CREATE TABLE `user` (
   `Username` varchar(255) NOT NULL,
   `Password` varchar(255) NOT NULL,
   `level` int(11) NOT NULL,
-  `level_index` int(11) NOT NULL
+  `level_index` int(11) NOT NULL,
+  `position` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`no.`, `Username`, `Password`, `level`, `level_index`) VALUES
-(1, 'admin', 'pass', 1, 1),
-(3, 'paras', 'pass', 2, 2);
+INSERT INTO `user` (`no.`, `Username`, `Password`, `level`, `level_index`, `position`) VALUES
+(1, 'admin', 'pass', 1, 1, 2),
+(3, 'paras', 'pass', 2, 2, 0),
+(4, 'supplier', 'supp', 3, 6, 1);
 
 --
 -- Indexes for dumped tables
@@ -100,7 +102,7 @@ ALTER TABLE `nodes`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `no.` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `no.` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
