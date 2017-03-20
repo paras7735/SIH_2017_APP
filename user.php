@@ -19,11 +19,11 @@ echo $_SESSION['uname'];
 	<title></title>
 	<script src="js/jquery.min.js"></script>
 	<script src="js/materialize.min.js"></script>
-	<style type="text/css" src="css/materialize.min.css"></style>
+	<link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
 	<script src="https://www.gstatic.com/firebasejs/3.7.2/firebase.js"></script>
 </head>
 <body>
-<button id="lout">Logout</button>
+<a class="waves-effect waves-light btn" id="lout">Logout</a>
 <script type="text/javascript" src="js/index.js"></script>
 </body>
 </html>

@@ -28,6 +28,35 @@ $(document).ready(function(){
                         console.log(data);
                     }    });
    });
+  $("#submitread").click(function(){
+        level = $("#level").val();
+        parent = $("#parent").val();
+        level_index = $("#level_index").val();
+        home = $("#home").val();
+        quality = $("#quality").val();
+        quantity = $("#quantity").val();
+   $.ajax({
+            type: "POST",
+            url: "controller/readings.php",
+            data: {
+                level:level,
+                parent:parent,
+                level_index:level_index,
+                home:home,
+                quality:quality,
+                quantity:quantity
+            },
+            dataType: "JSON",
+            success: function(data) {
+              console.log(data);
+              Materialize.toast('Data Updated', 5000);
+              $("#form1").trigger("reset");
+            },
+            error: function(data) {
+              console.log(data);
+            }  
+          });
+   });
   $("#lout").click(function(){
    $.ajax({
             type: "POST",
