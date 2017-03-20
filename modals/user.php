@@ -49,6 +49,18 @@ Class User {
             return $e->getMessage();  
         }
     }
+    public function getwholetable(){
+         try{
+            $query1 = $this->_db->prepare('SELECT * FROM nodes');
+            $query1->execute();
+            $results=$query1->fetchAll(PDO::FETCH_ASSOC);
+            
+            return $results;
+
+        }catch (PDOException $e) {
+            return $e->getMessage();  
+        }
+    }
   
     
 }
