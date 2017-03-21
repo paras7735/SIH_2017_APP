@@ -59,7 +59,7 @@ echo $_SESSION['uname'];
 
 </div>
 <button class="btn" id="submitread">Update</button>
-<button class="btn" id="dbupdate">dbupdate</button>
+
 <a class="waves-effect waves-light btn" id="lout">Logout</a>
 
 <script type="text/javascript" src="js/index.js"></script>
