@@ -60,6 +60,37 @@ playersRef.set({
                   }  
                             });
 };
+  $("#newNode").click(function(){
+        level = $("#level").val();
+        parent = $("#parent").val();
+        level_index = $("#level_index").val();
+        home = $("#home").val();
+        quality = $("#quality").val();
+        quantity = $("#quantity").val();
+   $.ajax({
+            type: "POST",
+            url: "controller/addReadings.php",
+            data: {
+                level:level,
+                parent:parent,
+                level_index:level_index,
+                home:home,
+                quality:quality,
+                quantity:quantity
+            },
+            dataType: "JSON",
+            success: function(data) {
+              
+              console.log(data);
+              Materialize.toast('Data Added', 5000);
+              $("#form1").trigger("reset");
+              dbupdate();
+            },
+            error: function(response) {
+              console.log(response);
+            }  
+          });
+   });
   $("#submitread").click(function(){
         level = $("#level").val();
         parent = $("#parent").val();
