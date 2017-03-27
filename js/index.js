@@ -155,7 +155,7 @@ function theft(nodes,length){
 
     }
   }
-  var player = firebase.database().ref("messages/");
+  var player = firebase.database().ref("messages/quantity");
   var msg = {};
   for(var k=1;k<m+1;k++){
     i=nodes2[k]['parent'];
@@ -163,7 +163,7 @@ function theft(nodes,length){
       console.log(i+"--"+nodes2[k]['sum']+"--"+nodes[i]['quantity']);
       if(nodes2[k]['sum']!=nodes[i]['quantity']){
         
-    msg[i] = { "msg":"please check line after meter with id:"+i,"id":i}
+    msg[i] = { "id":i}
         //the i here will give the id of the meter after which there is a leakage
 
         console.log("please check line after meter with id:-"+i);
