@@ -132,7 +132,7 @@ function theft(nodes,length){
       console.log(i+"--"+nodes2[k]['sum']+"--"+nodes[i]['quantity']);
       if(nodes2[k]['sum']!=nodes[i]['quantity']){
         
-    msg[k] = { "msg":"please check line after meter with id:"+i,"id":i}
+    msg[i] = { "msg":"please check line after meter with id:"+i,"id":i}
         //the i here will give the id of the meter after which there is a leakage
 
         console.log("please check line after meter with id:-"+i);
