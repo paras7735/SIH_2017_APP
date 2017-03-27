@@ -124,19 +124,32 @@ function theft(nodes,length){
 
     }
   }
+  var player = firebase.database().ref("messages/");
+  var msg = {};
   for(var k=1;k<m+1;k++){
     i=nodes2[k]['parent'];
     if(i!=-1){
       console.log(i+"--"+nodes2[k]['sum']+"--"+nodes[i]['quantity']);
       if(nodes2[k]['sum']!=nodes[i]['quantity']){
+        
+    msg[k] = { "msg":"please check line after meter with id:"+i,"id":i}
         //the i here will give the id of the meter after which there is a leakage
 
         console.log("please check line after meter with id:-"+i);
       }
     }else{
       console.log(i+"--"+nodes2[k]['sum']+"--"+nodes[0]['quantity'])
-    }
+       
+
+  
+  
+
+
   }
+  player.set({
+   msg
+   });
+    }
   console.log("after for loop");
 }
 
