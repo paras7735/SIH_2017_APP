@@ -54,6 +54,10 @@ echo $_SESSION['uname'];
           <input id="quantity" type="text" class="validate">
           <label for="quantity">Quantity</label>
         </div>
+        <div class="input-field col s5">
+          <input id="userId" type="text" class="validate">
+          <label for="userId">User ID</label>
+        </div>
       </div>
     </form>
 

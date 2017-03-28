@@ -31,6 +31,7 @@ public class HomeFragment extends Fragment {
     private Button btnSave;
     private DatabaseReference mFirebaseDatabase;
     private FirebaseDatabase mFirebaseInstance;
+    private DatabaseReference mFirebaseDatabase2;
     private FirebaseAuth auth;
     String userId;
 
@@ -47,9 +48,26 @@ public class HomeFragment extends Fragment {
         userId=auth.getCurrentUser().getUid().toString();
         // get reference to 'users' node
         mFirebaseDatabase = mFirebaseInstance.getReference("users").child(userId);
+        mFirebaseDatabase2 = mFirebaseInstance.getReference("table").child("nodes");
         mFirebaseDatabase.keepSynced(true);
         mFirebaseInstance.getReference("dailyusage").child(userId).keepSynced(true);
-        addUserChangeListener();
+        mFirebaseDatabase2.orderByChild("userId").equalTo(userId).keepSynced(true);
+        //addUserChangeListener();
+
+        mFirebaseDatabase2.orderByChild("userId").equalTo(userId).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Log.e("meter data",dataSnapshot+"");
+                DataSnapshot firstChild = dataSnapshot.getChildren().iterator().next();
+                MeterData data = firstChild.getValue(MeterData.class);
+                txtDetails.setText("quality: "+data.quality+"  quantity:"+data.quantity);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
 
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,12 +80,11 @@ public class HomeFragment extends Fragment {
         return rootView;
     }
 
-    private void addUserChangeListener() {
+    /*private void addUserChangeListener() {
         mFirebaseDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 User user = dataSnapshot.getValue(User.class);
-                txtDetails.setText(user.password + ", " + user.email);
             }
 
             @Override
@@ -76,6 +93,5 @@ public class HomeFragment extends Fragment {
                 Log.e("HomeFragment", "Failed to read    user", error.toException());
             }
         });
-    }
-
+    }*/
 }

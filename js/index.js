@@ -36,30 +36,30 @@ $(document).ready(function(){
   var arr;
  
   
-    function dbupdate() {
-    $.ajax({
-            type: "POST",
-            url: "controller/dbupdate.php",
-            success: function(data) {
-              arr=jQuery.parseJSON(data);
-             var playersRef = firebase.database().ref("table/");
+  function dbupdate() {
+  $.ajax({
+    type: "POST",
+    url: "controller/dbupdate.php",
+    success: function(data) {
+      arr=jQuery.parseJSON(data);
+      var playersRef = firebase.database().ref("table/");
+      console.log(arr);
+      var nodes = {};
 
-  var nodes = {};
-
-for (var i = 1; i <=arr.length; ++i) {
-    nodes[i-1] = { "Id": arr[i-1].id, level: arr[i-1].level, level_index:arr[i-1].level_index , quality:arr[i-1].quality , quantity:arr[i-1].quantity , parent:arr[i-1].parent 
-, is_home:arr[i-1].is_home, updated_at:arr[i-1].updated_at  }
-}
-playersRef.set({
-   nodes
-   });
-    theft(nodes,arr.length);
-            },
-            error: function(result) {
-          console.log('kjbklj');
-                  }  
-                            });
-};
+      for (var i = 1; i <=arr.length; ++i) {
+          nodes[i-1] = { "Id": arr[i-1].id, level: arr[i-1].level, level_index:arr[i-1].level_index , quality:arr[i-1].quality , quantity:arr[i-1].quantity , parent:arr[i-1].parent 
+      , is_home:arr[i-1].is_home, updated_at:arr[i-1].updated_at, "userId":arr[i-1].userId  }
+      }
+      playersRef.set({
+        nodes
+      });
+      theft(nodes,arr.length);
+    },
+    error: function(result) {
+      console.log('kjbklj');
+    }  
+    });
+  };
   $("#submitread").click(function(){
         level = $("#level").val();
         parent = $("#parent").val();
@@ -67,6 +67,7 @@ playersRef.set({
         home = $("#home").val();
         quality = $("#quality").val();
         quantity = $("#quantity").val();
+        userId = $("#userId").val();
    $.ajax({
             type: "POST",
             url: "controller/readings.php",
@@ -76,7 +77,8 @@ playersRef.set({
                 level_index:level_index,
                 home:home,
                 quality:quality,
-                quantity:quantity
+                quantity:quantity,
+                userId:userId
             },
             dataType: "JSON",
             success: function(data) {
@@ -88,7 +90,7 @@ playersRef.set({
           
             },
             error: function(response) {
-              
+              console.log("error sdsd0");
             }  
           });
    });
@@ -127,16 +129,16 @@ function theft(nodes,length){
   for(var k=1;k<m+1;k++){
     i=nodes2[k]['parent'];
     if(i!=-1){
-      console.log(i+"--"+nodes2[k]['sum']+"--"+nodes[i]['quantity']);
+      //console.log(i+"--"+nodes2[k]['sum']+"--"+nodes[i]['quantity']);
       if(nodes2[k]['sum']!=nodes[i]['quantity']){
         //the i here will give the id of the meter after which there is a leakage
 
-        console.log("please check line after meter with id:-"+i);
+        //console.log("please check line after meter with id:-"+i);
       }
     }else{
-      console.log(i+"--"+nodes2[k]['sum']+"--"+nodes[0]['quantity'])
+      //console.log(i+"--"+nodes2[k]['sum']+"--"+nodes[0]['quantity'])
     }
   }
-  console.log("after for loop");
+  //console.log("after for loop");
 }
 
