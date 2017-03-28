@@ -63,6 +63,8 @@ echo $_SESSION['uname'];
 
 </div>
 <button class="btn" id="submitread">Update</button>
+<button class="btn" id="newNode">Add Node</button>
+
 
 <a class="waves-effect waves-light btn" id="lout">Logout</a>
 

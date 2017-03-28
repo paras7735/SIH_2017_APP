@@ -49,6 +49,17 @@ Class User {
             return $e->getMessage();  
         }
     }
+    public function new_readings($level,$parent,$level_index,$home,$quality,$quantity){
+        try{
+            $query1 = $this->_db->prepare("INSERT INTO nodes(level,quality,quantity,parent,level_index,is_home) VALUES(:level,:quality,:quantity,:parent,:level_index,:is_home)");
+            $query1->execute(array(':level'=>$level,':parent'=>$parent,':level_index'=>$level_index,':is_home'=>$home,':quality'=>$quality,':quantity'=>$quantity));
+            $query1->rowCount();
+            return true;
+
+        }catch (PDOException $e) {
+            return $e->getMessage();  
+        }
+    }
     public function getwholetable(){
          try{
             $query1 = $this->_db->prepare('SELECT * FROM nodes');

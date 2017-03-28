@@ -46,6 +46,7 @@ $(document).ready(function(){
       console.log(arr);
       var nodes = {};
 
+<<<<<<< HEAD
       for (var i = 1; i <=arr.length; ++i) {
           nodes[i-1] = { "Id": arr[i-1].id, level: arr[i-1].level, level_index:arr[i-1].level_index , quality:arr[i-1].quality , quantity:arr[i-1].quantity , parent:arr[i-1].parent 
       , is_home:arr[i-1].is_home, updated_at:arr[i-1].updated_at, "userId":arr[i-1].userId  }
@@ -60,6 +61,53 @@ $(document).ready(function(){
     }  
     });
   };
+=======
+for (var i = 1; i <=arr.length; ++i) {
+    nodes[i-1] = { "Id": arr[i-1].id, level: arr[i-1].level, level_index:arr[i-1].level_index , quality:arr[i-1].quality , quantity:arr[i-1].quantity , parent:arr[i-1].parent 
+, is_home:arr[i-1].is_home, updated_at:arr[i-1].updated_at  }
+}
+playersRef.set({
+   nodes
+   });
+    theft(nodes,arr.length);
+            },
+            error: function(result) {
+          console.log('kjbklj');
+                  }  
+                            });
+};
+  $("#newNode").click(function(){
+        level = $("#level").val();
+        parent = $("#parent").val();
+        level_index = $("#level_index").val();
+        home = $("#home").val();
+        quality = $("#quality").val();
+        quantity = $("#quantity").val();
+   $.ajax({
+            type: "POST",
+            url: "controller/addReadings.php",
+            data: {
+                level:level,
+                parent:parent,
+                level_index:level_index,
+                home:home,
+                quality:quality,
+                quantity:quantity
+            },
+            dataType: "JSON",
+            success: function(data) {
+              
+              console.log(data);
+              Materialize.toast('Data Added', 5000);
+              $("#form1").trigger("reset");
+              dbupdate();
+            },
+            error: function(response) {
+              console.log(response);
+            }  
+          });
+   });
+>>>>>>> 29828f51c62258bb2a7cd02471e21c7bc12c2c97
   $("#submitread").click(function(){
         level = $("#level").val();
         parent = $("#parent").val();
@@ -126,19 +174,39 @@ function theft(nodes,length){
 
     }
   }
+  var player = firebase.database().ref("messages/quantity");
+  var msg = {};
   for(var k=1;k<m+1;k++){
     i=nodes2[k]['parent'];
     if(i!=-1){
       //console.log(i+"--"+nodes2[k]['sum']+"--"+nodes[i]['quantity']);
       if(nodes2[k]['sum']!=nodes[i]['quantity']){
+        
+    msg[i] = { "id":i}
         //the i here will give the id of the meter after which there is a leakage
 
         //console.log("please check line after meter with id:-"+i);
       }
     }else{
+<<<<<<< HEAD
       //console.log(i+"--"+nodes2[k]['sum']+"--"+nodes[0]['quantity'])
     }
   }
   //console.log("after for loop");
+=======
+      console.log(i+"--"+nodes2[k]['sum']+"--"+nodes[0]['quantity'])
+       
+
+  
+  
+
+
+  }
+  player.set({
+   msg
+   });
+    }
+  console.log("after for loop");
+>>>>>>> 29828f51c62258bb2a7cd02471e21c7bc12c2c97
 }
 
