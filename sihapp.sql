@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.2.11
+-- version 4.5.1
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 28, 2017 at 06:44 PM
--- Server version: 5.6.21
--- PHP Version: 5.6.3
+-- Generation Time: Mar 29, 2017 at 02:20 PM
+-- Server version: 10.1.13-MariaDB
+-- PHP Version: 5.6.21
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -14,7 +14,7 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
+/*!40101 SET NAMES utf8mb4 */;
 
 --
 -- Database: `sihapp`
@@ -26,8 +26,8 @@ SET time_zone = "+00:00";
 -- Table structure for table `nodes`
 --
 
-CREATE TABLE IF NOT EXISTS `nodes` (
-`id` int(11) NOT NULL,
+CREATE TABLE `nodes` (
+  `id` int(11) NOT NULL,
   `level` int(255) NOT NULL,
   `level_index` int(255) NOT NULL,
   `quality` int(11) NOT NULL,
@@ -36,42 +36,42 @@ CREATE TABLE IF NOT EXISTS `nodes` (
   `is_home` tinyint(1) NOT NULL,
   `userId` varchar(255) DEFAULT NULL,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `nodes`
 --
 
 INSERT INTO `nodes` (`id`, `level`, `level_index`, `quality`, `quantity`, `parent`, `is_home`, `userId`, `updated_at`) VALUES
-(0, 0, 0, 0, 0, -1, 0, '0', '2017-03-28 15:51:01'),
-(1, 1, 0, 0, 0, 0, 0, '0', '2017-03-28 15:49:25'),
-(2, 1, 1, 0, 0, 0, 0, '0', '2017-03-28 15:49:32'),
-(3, 2, 0, 0, 0, 1, 0, '0', '2017-03-28 15:49:34'),
-(4, 2, 1, 0, 0, 1, 0, '0', '2017-03-28 15:49:38'),
-(5, 2, 2, 0, 0, 2, 0, '0', '2017-03-28 15:49:40'),
-(6, 2, 3, 0, 0, 2, 0, '0', '2017-03-28 15:49:43'),
-(7, 2, 4, 0, 0, 2, 0, '0', '2017-03-28 15:49:46'),
-(8, 3, 0, 0, 0, 3, 0, '0', '2017-03-28 15:49:48'),
-(9, 3, 1, 0, 0, 4, 1, '0', '2017-03-28 15:49:51'),
-(10, 3, 2, 0, 0, 4, 1, '0', '2017-03-28 15:49:53'),
-(11, 3, 3, 0, 0, 4, 1, '0', '2017-03-28 15:49:55'),
-(12, 3, 4, 0, 0, 5, 1, '0', '2017-03-28 15:49:57'),
-(13, 3, 5, 0, 0, 5, 1, '0', '2017-03-28 15:49:59'),
-(14, 3, 6, 0, 0, 6, 0, '0', '2017-03-28 15:50:02'),
-(15, 3, 7, 0, 0, 7, 0, '0', '2017-03-28 15:50:05'),
-(16, 3, 8, 0, 0, 7, 1, '0', '2017-03-28 15:50:07'),
-(17, 4, 0, 0, 0, 8, 1, '0', '2017-03-28 15:50:09'),
-(18, 4, 1, 0, 0, 8, 1, '0', '2017-03-28 15:50:11'),
-(19, 4, 2, 0, 0, 14, 1, '0', '2017-03-28 15:50:13'),
-(20, 4, 3, 0, 0, 14, 0, '0', '2017-03-28 15:50:15'),
-(21, 4, 4, 0, 0, 14, 1, '0', '2017-03-28 15:50:19'),
-(22, 4, 5, 0, 0, 14, 1, '0', '2017-03-28 15:50:20'),
-(23, 4, 6, 10018, 7806, 15, 0, '0', '2017-03-28 16:30:47'),
-(24, 4, 7, 0, 0, 15, 1, '0', '2017-03-28 15:50:25'),
-(25, 4, 8, 0, 0, 1, 1, '0', '2017-03-28 15:50:26'),
-(26, 5, 0, 0, 0, 20, 1, '0', '2017-03-28 15:50:28'),
-(27, 5, 1, 3453, 4353, 23, 1, '0', '2017-03-28 15:50:30'),
-(28, 5, 2, 6565, 3656, 23, 1, 'avzc6nnNj6NghdEZrL55hmPO6rC3', '2017-03-28 16:07:44');
+(1, 0, 0, 0, 0, -1, 0, '0', '2017-03-29 12:16:50'),
+(2, 1, 0, 500, 500, 0, 0, '0', '2017-03-29 12:20:15'),
+(3, 1, 1, 500, 500, 0, 0, '0', '0000-00-00 00:00:00'),
+(4, 2, 0, 250, 250, 1, 0, '0', '0000-00-00 00:00:00'),
+(5, 2, 1, 250, 250, 1, 0, '0', '0000-00-00 00:00:00'),
+(6, 2, 2, 168, 168, 2, 0, '0', '0000-00-00 00:00:00'),
+(7, 2, 3, 166, 166, 2, 0, '0', '0000-00-00 00:00:00'),
+(8, 2, 4, 166, 166, 2, 0, '0', '0000-00-00 00:00:00'),
+(9, 3, 0, 250, 250, 3, 0, '0', '0000-00-00 00:00:00'),
+(10, 3, 1, 84, 84, 4, 1, '0', '0000-00-00 00:00:00'),
+(11, 3, 2, 83, 83, 4, 1, '0', '0000-00-00 00:00:00'),
+(12, 3, 3, 83, 83, 4, 1, '0', '0000-00-00 00:00:00'),
+(13, 3, 4, 84, 84, 5, 1, '0', '0000-00-00 00:00:00'),
+(14, 3, 5, 84, 84, 5, 1, '0', '0000-00-00 00:00:00'),
+(15, 3, 6, 166, 166, 6, 0, '0', '0000-00-00 00:00:00'),
+(16, 3, 7, 83, 83, 7, 0, '0', '0000-00-00 00:00:00'),
+(17, 3, 8, 83, 83, 7, 1, '0', '0000-00-00 00:00:00'),
+(18, 4, 0, 125, 125, 8, 1, '0', '0000-00-00 00:00:00'),
+(19, 4, 1, 125, 125, 8, 1, '0', '0000-00-00 00:00:00'),
+(20, 4, 2, 42, 42, 14, 1, '0', '0000-00-00 00:00:00'),
+(21, 4, 3, 41, 41, 14, 0, '0', '0000-00-00 00:00:00'),
+(22, 4, 4, 42, 42, 14, 1, '0', '0000-00-00 00:00:00'),
+(23, 4, 5, 41, 41, 14, 1, '0', '0000-00-00 00:00:00'),
+(24, 4, 6, 41, 41, 15, 0, '0', '0000-00-00 00:00:00'),
+(25, 4, 7, 42, 42, 15, 1, '0', '0000-00-00 00:00:00'),
+(26, 4, 8, 83, 83, 16, 1, '0', '0000-00-00 00:00:00'),
+(27, 5, 0, 41, 41, 20, 1, '0', '0000-00-00 00:00:00'),
+(28, 5, 1, 20, 20, 23, 1, '0', '0000-00-00 00:00:00'),
+(29, 5, 2, 21, 21, 23, 1, 'avzc6nnNj6NghdEZrL55hmPO6rC3', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -79,14 +79,14 @@ INSERT INTO `nodes` (`id`, `level`, `level_index`, `quality`, `quantity`, `paren
 -- Table structure for table `user`
 --
 
-CREATE TABLE IF NOT EXISTS `user` (
-`no.` int(11) NOT NULL,
+CREATE TABLE `user` (
+  `no.` int(11) NOT NULL,
   `level` int(255) NOT NULL,
   `level_index` int(255) NOT NULL,
   `Username` varchar(255) NOT NULL,
   `Password` varchar(255) NOT NULL,
   `position` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `user`
@@ -105,13 +105,13 @@ INSERT INTO `user` (`no.`, `level`, `level_index`, `Username`, `Password`, `posi
 -- Indexes for table `nodes`
 --
 ALTER TABLE `nodes`
- ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `user`
 --
 ALTER TABLE `user`
- ADD PRIMARY KEY (`no.`);
+  ADD PRIMARY KEY (`no.`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -121,12 +121,12 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `nodes`
 --
 ALTER TABLE `nodes`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=29;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-MODIFY `no.` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
+  MODIFY `no.` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
