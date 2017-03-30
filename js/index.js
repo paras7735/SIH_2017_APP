@@ -96,6 +96,7 @@ $(document).ready(function(){
    });
 
   $("#submitread").click(function(){
+    if($("#level").val()!='' && $("#parent").val()!='' && $("#level_index").val()!='' && $("#home").val()!='' && $("#quality").val()!='' && $("#quantity").val()!='' && $("#userId").val()!='' ){
         level = $("#level").val();
         parent = $("#parent").val();
         level_index = $("#level_index").val();
@@ -128,7 +129,7 @@ $(document).ready(function(){
               console.log("error sdsd0");
             }  
           });
-   });
+   }});
   $("#lout").click(function(){
    $.ajax({
             type: "POST",
