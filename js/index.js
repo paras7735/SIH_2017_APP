@@ -195,8 +195,6 @@ console.log(i+"--"+nodes2[k]['sum']+"--"+nodes[0]['quantity'])
    });
     }
   
-
-
 function qualitydrop(nodes,length){
   var sum,i,j;
   var m=0;
@@ -204,15 +202,10 @@ function qualitydrop(nodes,length){
   var parentids= [];
   for(i=0;i<length;i++){
     sum=0;
-    if(parentids.indexOf(nodes[i]["parent"])==-1){
+     if(parentids.indexOf(nodes[i]["parent"])==-1){
       parentids[m++]=nodes[i]["parent"];
-      for(j=0;j<length;j++){
-        if(nodes[i]["parent"]==nodes[j]["parent"]){
-          sum=parseInt(sum)+parseInt(nodes[j]["quality"]);
-        }
-      }
-      nodes2[m]={"parent":nodes[i]["parent"],"sum":sum}
-
+      quality=parseInt(nodes[i]["quality"]);
+      nodes2[m]={"parent":nodes[i]["parent"],"quality":quality,"id":nodes[i]["id"]}
     }
   }
   var player = firebase.database().ref("messages/quality");
@@ -221,15 +214,15 @@ function qualitydrop(nodes,length){
     i=nodes2[k]['parent'];
     if(i!=-1){
       console.log(i+"--"+nodes2[k]['sum']+"--"+nodes[i]['quality']);
-      if(nodes2[k]['sum']!=nodes[i]['quality']){
+      if(nodes2[k]['quality']!=nodes[i]['quality']){
         
     msg2[i] = { "id":i}
         //the i here will give the id of the meter after which there is a leakage
-
-        console.log("please check line after meter with id:-"+i);
+        z=nodes2[k]['id'];
+        console.log("Please check line after meter with id(quality load):-"+i+" in the house ID: "+z);
       }
     }else{
- console.log(i+"--"+nodes2[k]['sum']+"--"+nodes[0]['quality'])
+      console.log(i+"--"+nodes2[k]['sum']+"--"+nodes[0]['quality'])
       console.log(i+"--"+nodes2[k]['sum']+"--"+nodes[0]['quality'])
     }
   }
@@ -240,6 +233,7 @@ function qualitydrop(nodes,length){
    msg2
    });
     }
+
   });
 
 

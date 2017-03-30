@@ -23,7 +23,9 @@ echo $_SESSION['uname'];
 	<script src="https://www.gstatic.com/firebasejs/3.7.2/firebase.js"></script>
 </head>
 <body>
-<div class="col s6" style="padding: 0;">
+
+<div class="row">
+<div class="col s6 l6" style="padding: 0;">
 				<div class="taskHead cyan accent-4" ><h5>Qualtity Load</h5></div>
 				<table class="striped">
         			<thead>
@@ -37,7 +39,10 @@ echo $_SESSION['uname'];
         			</tbody>
       			</table>
 </div>
+</div>
+
 <a class="waves-effect waves-light btn" id="lout">Logout</a>
+
 <script type="text/javascript" src="js/supplier.js"></script>
 </body>
 </html>

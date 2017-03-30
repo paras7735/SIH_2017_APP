@@ -62,7 +62,7 @@ console.log(i+"--"+nodes2[k]['sum']+"--"+nodes[0]['quantity'])
   }
 
 
-    function qualitydrop(nodes,length){
+function qualitydrop(nodes,length){
   var sum,i,j,quality,string;
   var m=0;
   var nodes2 = {};
