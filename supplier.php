@@ -24,6 +24,6 @@ echo $_SESSION['uname'];
 </head>
 <body>
 <a class="waves-effect waves-light btn" id="lout">Logout</a>
-<script type="text/javascript" src="js/index.js"></script>
+<script type="text/javascript" src="js/supplier.js"></script>
 </body>
 </html>
