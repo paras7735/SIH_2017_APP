@@ -49,11 +49,11 @@ function dbupdate() {
     // msg[i] = { "id":i}
     //the i here will give the id of the meter after which there is a leakage
 
-        console.log("please check line after meter with id:-"+i);
+        console.log("please check line after meter with id(theft):-"+i);
       }
     }else{
 console.log(i+"--"+nodes2[k]['sum']+"--"+nodes[0]['quantity'])
-      //console.log(i+"--"+nodes2[k]['sum']+"--"+nodes[0]['quantity'])
+      console.log(i+"--"+nodes2[k]['sum']+"--"+nodes[0]['quantity'])
     }
   }
   //console.log("after for loop");
@@ -62,41 +62,45 @@ console.log(i+"--"+nodes2[k]['sum']+"--"+nodes[0]['quantity'])
 
 
     function qualitydrop(nodes,length){
-  var sum,i,j;
+  var sum,i,j,quality;
   var m=0;
   var nodes2 = {};
   var parentids= [];
   for(i=0;i<length;i++){
-    sum=0;
     if(parentids.indexOf(nodes[i]["parent"])==-1){
       parentids[m++]=nodes[i]["parent"];
-      for(j=0;j<length;j++){
-        if(nodes[i]["parent"]==nodes[j]["parent"]){
-          sum=parseInt(sum)+parseInt(nodes[j]["quality"]);
-        }
-      }
-      nodes2[m]={"parent":nodes[i]["parent"],"sum":sum}
-
+      quality=parseInt(nodes[i]["quality"]);
+      nodes2[m]={"parent":nodes[i]["parent"],"quality":quality}
+      console.log(nodes2[m]);
     }
   }
   for(var k=1;k<m+1;k++){
     i=nodes2[k]['parent'];
     if(i!=-1){
-      console.log(i+"--"+nodes2[k]['sum']+"--"+nodes[i]['quality']);
-      if(nodes2[k]['sum']!=nodes[i]['quality']){
+      if(nodes2[k]['quality']!=nodes[i]['quality']){
         
     //msg2[i] = { "id":i}
         //the i here will give the id of the meter after which there is a leakage
 
-        console.log("please check line after meter with id:-"+i);
+         console.log("Please check line after meter with id(quality load):-"+i);
       }
-    }else{
- console.log(i+"--"+nodes2[k]['sum']+"--"+nodes[0]['quality'])
-      console.log(i+"--"+nodes2[k]['sum']+"--"+nodes[0]['quality'])
     }
   }
-  //console.log("after for loop");
   }
+
+  $("#lout").click(function(){
+   $.ajax({
+            type: "POST",
+            url: "controller/logout.php",
+            success: function(data) {
+              console.log(data);
+              window.location.assign('index.php');
+            },
+            error: function(data) {
+              console.log(data);
+            }    
+        });
+   });
 
 
 });
