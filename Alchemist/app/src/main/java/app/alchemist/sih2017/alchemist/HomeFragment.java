@@ -21,6 +21,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.lang.reflect.Array;
+
 public class HomeFragment extends Fragment {
 
     public HomeFragment() {
@@ -40,6 +42,7 @@ public class HomeFragment extends Fragment {
 
         final View rootView = inflater.inflate(R.layout.fragment_home, container, false);
         txtDetails = (TextView) rootView.findViewById(R.id.txt_user);
+        final TextView daily = (TextView) rootView.findViewById(R.id.daily);
         btnSave = (Button) rootView.findViewById(R.id.btn_save);
         auth = FirebaseAuth.getInstance();
         mFirebaseInstance = FirebaseDatabase.getInstance();
@@ -51,16 +54,33 @@ public class HomeFragment extends Fragment {
         mFirebaseDatabase2 = mFirebaseInstance.getReference("table").child("nodes");
         mFirebaseDatabase.keepSynced(true);
         mFirebaseInstance.getReference("dailyusage").child(userId).keepSynced(true);
-        mFirebaseDatabase2.orderByChild("userId").equalTo(userId).keepSynced(true);
-        //addUserChangeListener();
+        mFirebaseDatabase = mFirebaseInstance.getReference("dailyusage").child(userId);
 
+        mFirebaseDatabase2.orderByChild("userId").equalTo(userId).keepSynced(true);
+        //addUserChangeListener()
+        mFirebaseDatabase.orderByChild(userId).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Log.e("meter datjnnonoa",dataSnapshot+"");
+                String data = (String) dataSnapshot.toString();
+
+                daily.setText("Daily Usage\n"+data);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
         mFirebaseDatabase2.orderByChild("userId").equalTo(userId).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Log.e("meter data",dataSnapshot+"");
                 DataSnapshot firstChild = dataSnapshot.getChildren().iterator().next();
                 MeterData data = firstChild.getValue(MeterData.class);
-                txtDetails.setText("quality: "+data.quality+"  quantity:"+data.quantity);
+
+                txtDetails.setText("Quality\n"+data.quality);
+
             }
 
             @Override
