@@ -23,6 +23,20 @@ echo $_SESSION['uname'];
 	<script src="https://www.gstatic.com/firebasejs/3.7.2/firebase.js"></script>
 </head>
 <body>
+<div class="col s12 m6 push-m1 l6 push-l1 z-depth-1 otherBox" style="padding: 0;">
+				<div class="taskHead cyan accent-4" ><h5>Qualtity Load</h5></div>
+				<table class="striped">
+        			<thead>
+          				<tr>
+              				<th data-field="id">Parent ID</th>
+              				<th data-field="name">House ID</th>
+          				</tr>
+        			</thead>
+        			<tbody id="tableBody">
+          				
+        			</tbody>
+      			</table>
+			</div>
 <a class="waves-effect waves-light btn" id="lout">Logout</a>
 <script type="text/javascript" src="js/supplier.js"></script>
 </body>
