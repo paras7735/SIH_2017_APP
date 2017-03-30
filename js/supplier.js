@@ -13,7 +13,8 @@ function dbupdate() {
       , is_home:arr[i-1].is_home, updated_at:arr[i-1].updated_at, userId:arr[i-1].userId  }
       }
       theft(nodes,arr.length);
-      qualitydrop(nodes,arr.length);
+      var response=qualitydrop(nodes,arr.length);
+      $('#tableBody').html(response);
     },
     error: function(result) {
       console.log('kjbklj');
@@ -62,7 +63,7 @@ console.log(i+"--"+nodes2[k]['sum']+"--"+nodes[0]['quantity'])
 
 
     function qualitydrop(nodes,length){
-  var sum,i,j,quality;
+  var sum,i,j,quality,string;
   var m=0;
   var nodes2 = {};
   var parentids= [];
@@ -83,9 +84,11 @@ console.log(i+"--"+nodes2[k]['sum']+"--"+nodes[0]['quantity'])
         //the i here will give the id of the meter after which there is a leakage
          z=nodes2[k]['id'];
          console.log("Please check line after meter with id(quality load):-"+i+" in the house ID: "+z);
+         string += "<tr><td>"+i+"</td><td>"+z+"</td></tr>"
       }
     }
   }
+  return string;
   }
 
   $("#lout").click(function(){
