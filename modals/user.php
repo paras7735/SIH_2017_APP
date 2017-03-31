@@ -38,10 +38,10 @@ Class User {
         session_destroy();
         return true;
     }
-    public function enter_readings($level,$parent,$level_index,$home,$quality,$quantity){
+    public function enter_readings($level,$parent,$level_index,$home,$quality,$quantity,$userId){
         try{
-            $query1 = $this->_db->prepare('UPDATE nodes SET quality=:quality,quantity=:quantity WHERE level=:level AND level_index=:level_index');
-            $query1->execute(array(':quality'=>$quality,':quantity'=>$quantity,':level'=>$level,':level_index'=>$level_index));
+            $query1 = $this->_db->prepare('UPDATE nodes SET quality=:quality,quantity=:quantity,userId=:userId WHERE level=:level AND level_index=:level_index');
+            $query1->execute(array(':quality'=>$quality,':quantity'=>$quantity,':level'=>$level,':level_index'=>$level_index,':userId'=>'$userId'));
             $query1->rowCount();
             return true;
 
@@ -49,10 +49,10 @@ Class User {
             return $e->getMessage();  
         }
     }
-    public function new_readings($level,$parent,$level_index,$home,$quality,$quantity){
+    public function new_readings($level,$parent,$level_index,$home,$quality,$quantity,$userId){
         try{
-            $query1 = $this->_db->prepare("INSERT INTO nodes(level,quality,quantity,parent,level_index,is_home) VALUES(:level,:quality,:quantity,:parent,:level_index,:is_home)");
-            $query1->execute(array(':level'=>$level,':parent'=>$parent,':level_index'=>$level_index,':is_home'=>$home,':quality'=>$quality,':quantity'=>$quantity));
+            $query1 = $this->_db->prepare("INSERT INTO nodes(level,quality,quantity,parent,level_index,is_home,userId) VALUES(:level,:quality,:quantity,:parent,:level_index,:is_home,:userId)");
+            $query1->execute(array(':level'=>$level,':parent'=>$parent,':level_index'=>$level_index,':is_home'=>$home,':quality'=>$quality,':quantity'=>$quantity,':userId'=>$userId));
             $query1->rowCount();
             return true;
 
