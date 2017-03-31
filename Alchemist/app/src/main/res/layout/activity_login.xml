@@ -10,18 +10,21 @@
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:background="@color/colorPrimary"
+        android:background="@color/white"
         android:gravity="center"
         android:orientation="vertical"
-        android:padding="@dimen/activity_horizontal_margin">
+        android:padding="0dp"
+        android:weightSum="1">
 
 
         <ImageView
-            android:layout_width="@dimen/logo_w_h"
+            android:layout_width="367dp"
             android:layout_height="@dimen/logo_w_h"
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="30dp"
-            android:src="@mipmap/ic_launcher" />
+            android:src="@drawable/login"
+            android:layout_weight="0.65"
+            android:scaleType="centerCrop"/>
 
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
@@ -57,12 +60,15 @@
 
         <Button
             android:id="@+id/btn_login"
-            android:layout_width="fill_parent"
+            android:layout_width="139dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dip"
-            android:background="@color/colorAccent"
+            android:background="#ff0000"
             android:text="@string/btn_login"
-            android:textColor="@android:color/black" />
+            android:textColor="@android:color/white"
+            android:layout_weight="0.06"
+            android:gravity="center"
+            android:textStyle="bold"/>
 
         <Button
             android:id="@+id/btn_reset_password"
@@ -72,7 +78,8 @@
             android:background="@null"
             android:text="@string/btn_forgot_password"
             android:textAllCaps="false"
-            android:textColor="@color/colorAccent" />
+            android:textColor="#000000"
+            android:gravity="center"/>
 
         <!-- Link to Login Screen -->
 
@@ -84,8 +91,9 @@
             android:background="@null"
             android:text="@string/btn_link_to_register"
             android:textAllCaps="false"
-            android:textColor="@color/white"
-            android:textSize="15dp" />
+            android:textColor="#000000"
+            android:textSize="15dp"
+            android:gravity="center"/>
     </LinearLayout>
 
     <ProgressBar

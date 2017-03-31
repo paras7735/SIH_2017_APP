@@ -55,7 +55,7 @@ private static final String TAG = MainActivity.class.getSimpleName();
         DataModel[] drawerItem = new DataModel[2];
 
         drawerItem[0] = new DataModel(R.drawable.common_google_signin_btn_text_dark, "Home");
-        drawerItem[1] = new DataModel(R.drawable.common_ic_googleplayservices, "Graph");
+        drawerItem[1] = new DataModel(R.drawable.common_google_signin_btn_text_dark, "Graph");
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         getSupportActionBar().setHomeButtonEnabled(true);
 
@@ -93,7 +93,9 @@ private static final String TAG = MainActivity.class.getSimpleName();
             case 1:
                 fragment = new GraphFragment();
                 break;
-
+            case 2:
+                fragment = new NotiFragment();
+                break;
             default:
                 fragment = new HomeFragment();
                 break;
