@@ -70,8 +70,8 @@ function qualitydrop(nodes,length){
   var m=0;
   var nodes2 = {};
   for(i=0;i<length;i++){
-      quality=parseInt(nodes[i]["quality"]);
-      if(parseInt(quality)<10){
+      quality=parseFloat(nodes[i]["quality"]);
+      if(parseFloat(quality)>8 || parseFloat(quality)<6){
       nodes2[m]={"parent":nodes[i]["parent"],"quality":quality,"id":nodes[i]["id"]};
       console.log(nodes2[m]);
       m++;
@@ -81,8 +81,9 @@ function qualitydrop(nodes,length){
   for(var k=0;k<m;k++){
          i=nodes2[k]['parent'];
          hid=nodes2[k]['id'];
+         qual=parseFloat(nodes2[k]['quality']);
          console.log("Please check line after meter with id(quality load):-"+i+" in the house ID: "+hid);
-         string += "<tr><td>"+i+"</td><td>"+hid+"</td></tr>";
+         string += "<tr><td>"+i+"</td><td>"+hid+"</td><td>"+qual+"</td></tr>";
       
   }
   return string;
@@ -102,6 +103,8 @@ function qualitydrop(nodes,length){
             }    
         });
    });
+
+  $('ul.tabs').tabs();
 
 
 });
