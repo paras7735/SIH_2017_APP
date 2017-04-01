@@ -22,8 +22,26 @@ else if($user->is_logged_in() && $_SESSION['position']==0){
   <script src="https://www.gstatic.com/firebasejs/3.7.2/firebase.js"></script>
 <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400" rel="stylesheet">
+<style type="text/css">
+  #quali{
+    transform: scale(0.8);
+    transition: transform 0.5s;
+  }
+  #quali:hover{
+    transform: scale(0.9);
+    cursor: pointer;
+  }
+  #quant{
+    transform: scale(0.8);
+    transition: transform 0.5s;
+  }
+  #quant:hover{
+    transform: scale(0.9);
+    cursor: pointer;
+  }
+</style>
 </head>
-<body style="background-color: rgb(51,63,80);">
+<body style="background:url(images/4.png);">
 <div class="navbar-fixed" style="height: 50px;">
 <nav style="height: 50px;line-height: 50px;background-color:rgba(187,28,33,0.9);z-index: 100;...">
     <div class="nav-wrapper" >
@@ -43,7 +61,7 @@ else if($user->is_logged_in() && $_SESSION['position']==0){
   <center><h1 style="color:white;font-family: 'Open Sans', sans-serif;">Potable Water Supply</h1></center>
   </div>
 </div>
-<div class="row">
+<!-- <div class="row">
     <div class="col s8 offset-s2">
       <ul class="tabs">
         <li class="tab col s3"><a href="#test1">Quality</a></li>
@@ -85,8 +103,61 @@ else if($user->is_logged_in() && $_SESSION['position']==0){
               </tbody>
             </table>
 </div>
-</div>
+</div> -->
+<div class="row">
+  <div class="col s3 offset-s1" style="margin-left: 175px;">
+    <!-- <img src="images/1.png" style="transform: scale(0.8);z-index: 50;"> -->
+    <div style="background: url(images/5.png);width:410px ;height:410px; margin-left: 70px;">
+    <a href="#modal2" class="modal-trigger"><img id="quali" src="images/2.png" style="z-index: 80;margin-left: 85px;margin-top: 35px;"></a>
+    </div>
+  </div>
+  <div class="col s3 offset-s1">
+    <!-- <img src="images/1.png" style="transform: scale(0.8);z-index: 50;"> -->
+    <div style="background: url(images/5.png);width:410px ;height:410px;margin-left: 55px;">
+    <a href="#modal3" class="modal-trigger"><img id="quant" src="images/3.png" style="z-index: 80;margin-left: 85px;margin-top: 35px;"></a>
+    </div>
+  </div>
+</div> 
+  <div id="modal2" class="modal modal-fixed-footer">
+          <div class="modal-content">
+            <h4>Quality Problem</h4>
+            <table class="bordered">
+              <thead>
+                  <tr>
+                      <th data-field="id">Parent ID</th>
+                      <th data-field="name">House ID</th>
+                      <th data-field="qual">Quality</th>
+                  </tr>
+              </thead>
+              <tbody id="tableBody">
+                  
+              </tbody>
+            </table>
+          </div>
+          <div class="modal-footer">
+            <a href="#!" class="modal-action modal-close waves-effect waves-red btn-flat ">Close</a>
+          </div>
+        </div>
 
+        <div id="modal3" class="modal modal-fixed-footer">
+          <div class="modal-content">
+            <h4>Quantity Problem</h4>
+            <table class="bordered">
+              <thead>
+                  <tr>
+                      <th data-field="id">Parent ID</th>
+                      <th data-field="name">Difference</th>
+                  </tr>
+              </thead>
+              <tbody id="tableBody2">
+                  
+              </tbody>
+            </table>
+          </div>
+          <div class="modal-footer">
+            <a href="#!" class="modal-action modal-close waves-effect waves-red btn-flat ">Close</a>
+          </div>
+        </div>
 
 
 

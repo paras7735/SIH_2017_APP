@@ -24,7 +24,7 @@ if($user->is_logged_in()) {
   <div class="anyForm loginform">
     <div class="container white z-depth-5">
       <div class="row">
-        <h2 class="center">Spring Fest Fresher's Event</h2>
+        <h2 class="center">Login Portal</h2>
         <form class="col s10 offset-s1">
           <div class="row">
             <div class="input-field col s8 offset-s2">
