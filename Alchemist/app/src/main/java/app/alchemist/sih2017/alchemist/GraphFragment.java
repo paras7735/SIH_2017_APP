@@ -7,6 +7,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.LineData;
+import com.github.mikephil.charting.data.LineDataSet;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -14,13 +18,11 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 
-/**
- * Created by Prasanna on 3/21/2017.
- */
+import java.util.ArrayList;
+import java.util.List;
 
 public class GraphFragment extends Fragment{
     public GraphFragment(){
@@ -31,6 +33,10 @@ public class GraphFragment extends Fragment{
     private FirebaseAuth auth;
     String userId;
     Integer i;
+    LineChart chart;
+    LineDataSet dataSet;
+    List<Entry> entries;
+    LineData lineData ;
 
     LineGraphSeries<DataPoint> series;
     @Override
@@ -45,7 +51,8 @@ public class GraphFragment extends Fragment{
         mFirebaseDatabase = mFirebaseInstance.getReference("dailyusage").child(userId);
         mFirebaseDatabase.keepSynced(true);
 
-        final GraphView graph = (GraphView) rootView.findViewById(R.id.graph);
+        chart = (LineChart)rootView.findViewById(R.id.graph_dusage);
+        entries = new ArrayList<>();
         /*series = new LineGraphSeries<>(new DataPoint[] {
                 new DataPoint(0, 1),
                 new DataPoint(1, 5),
@@ -53,24 +60,16 @@ public class GraphFragment extends Fragment{
                 new DataPoint(3, 2),
                 new DataPoint(5, 6)
         });*/
-        series = new LineGraphSeries<>();
-        mFirebaseDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                graph.addSeries(series);
-            }
+        lineData = new LineData();
+        dataSet = new LineDataSet(entries, "Label");
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
         mFirebaseDatabase.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 Long data = (Long) dataSnapshot.getValue();
-                series.appendData(new DataPoint(i++,data),false,20);
-                Log.e("graph 0", dataSnapshot.getValue().toString()+" sdsd  "+data);
+                dataSet.addEntry(new Entry(i, data));
+                dataSet.notifyDataSetChanged();
+                i++;
             }
 
             @Override
@@ -93,13 +92,22 @@ public class GraphFragment extends Fragment{
 
             }
         });
-        graph.getViewport().setMinX(0);
-        graph.getViewport().setMaxX(20);
-        graph.getViewport().setMinY(0.0);
-        graph.getViewport().setMaxY(20.0);
+        mFirebaseDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Log.e("Sdsd",""+dataSet+"####sdjasdg");
+                lineData.addDataSet(dataSet);
+                chart.setData(lineData);
+                chart.invalidate();
 
-        graph.getViewport().setYAxisBoundsManual(true);
-        graph.getViewport().setXAxisBoundsManual(true);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
         return rootView;
     }
 }

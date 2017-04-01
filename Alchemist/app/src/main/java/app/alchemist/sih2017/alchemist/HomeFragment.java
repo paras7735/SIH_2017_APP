@@ -21,8 +21,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.lang.reflect.Array;
-
 public class HomeFragment extends Fragment {
 
     public HomeFragment() {
@@ -37,6 +35,7 @@ public class HomeFragment extends Fragment {
     private FirebaseAuth auth;
     String userId;
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -44,6 +43,7 @@ public class HomeFragment extends Fragment {
         txtDetails = (TextView) rootView.findViewById(R.id.txt_user);
         final TextView daily = (TextView) rootView.findViewById(R.id.daily);
         btnSave = (Button) rootView.findViewById(R.id.btn_save);
+
         auth = FirebaseAuth.getInstance();
         mFirebaseInstance = FirebaseDatabase.getInstance();
 
@@ -62,7 +62,7 @@ public class HomeFragment extends Fragment {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Log.e("meter datjnnonoa",dataSnapshot+"");
-                String data = (String) dataSnapshot.toString();
+                String data = (String) dataSnapshot.getValue().toString();
 
                 daily.setText("Daily Usage\n"+data);
             }
@@ -97,6 +97,11 @@ public class HomeFragment extends Fragment {
                 startActivity(intent);
             }
         });
+
+
+
+
+
         return rootView;
     }
 

@@ -17,14 +17,14 @@
         android:weightSum="1">
 
 
-        <ImageView
+        <!--<ImageView
             android:layout_width="367dp"
             android:layout_height="@dimen/logo_w_h"
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="30dp"
             android:src="@drawable/login"
             android:layout_weight="0.65"
-            android:scaleType="centerCrop"/>
+            android:scaleType="centerCrop"/>-->
 
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
@@ -37,8 +37,8 @@
                 android:layout_marginBottom="10dp"
                 android:hint="@string/hint_email"
                 android:inputType="textEmailAddress"
-                android:textColor="@android:color/white"
-                android:textColorHint="@android:color/white" />
+                android:textColor="@android:color/black"
+                android:textColorHint="@android:color/black" />
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
@@ -52,8 +52,8 @@
                 android:layout_marginBottom="10dp"
                 android:hint="@string/hint_password"
                 android:inputType="textPassword"
-                android:textColor="@android:color/white"
-                android:textColorHint="@android:color/white" />
+                android:textColor="@android:color/black"
+                android:textColorHint="@android:color/black" />
         </android.support.design.widget.TextInputLayout>
 
         <!-- Login Button -->
