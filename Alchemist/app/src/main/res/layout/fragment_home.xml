@@ -3,13 +3,11 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:weightSum="1">
-
-    <TextView
+    <com.github.mikephil.charting.charts.PieChart
+        android:id="@+id/charthome"
         android:layout_width="match_parent"
-        android:layout_height="332dp"
-        android:id="@+id/txt_user"
-        android:gravity="center"
-        android:textSize="50sp"/>
+        android:layout_height="500dp"
+        android:gravity="center"/>
 
     <LinearLayout
         android:orientation="horizontal"

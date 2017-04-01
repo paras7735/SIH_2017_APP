@@ -11,15 +11,11 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.jjoe64.graphview.GraphView;
-import com.jjoe64.graphview.series.DataPoint;
-import com.jjoe64.graphview.series.LineGraphSeries;
 /**
  * Created by R.K on 31-03-2017.
  */
@@ -42,7 +38,7 @@ public class NotiFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         final View rootView = inflater.inflate(R.layout.fragment_home, container, false);
-        txtDetails = (TextView) rootView.findViewById(R.id.txt_user);
+        //txtDetails = (TextView) rootView.findViewById(R.id.txt_user);
         final TextView daily = (TextView) rootView.findViewById(R.id.daily);
         btnSave = (Button) rootView.findViewById(R.id.btn_save);
         auth = FirebaseAuth.getInstance();

@@ -32,5 +32,10 @@
     <string-array name="navigation_drawer_items_array">
         <item>Home</item>
         <item>Graph</item>
+        <item>Notifications</item>
+        <item>Complaint</item>
+        <item>User Details</item>
+        <item>Contact Us</item>
+        <item>Log Out</item>
     </string-array>
 </resources>

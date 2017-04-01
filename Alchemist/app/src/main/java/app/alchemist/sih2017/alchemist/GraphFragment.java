@@ -67,6 +67,7 @@ public class GraphFragment extends Fragment{
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 Long data = (Long) dataSnapshot.getValue();
+                Log.e("ese",dataSnapshot+"");
                 dataSet.addEntry(new Entry(i, data));
                 dataSet.notifyDataSetChanged();
                 i++;

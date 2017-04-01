@@ -1,6 +1,7 @@
 package app.alchemist.sih2017.alchemist;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -49,13 +50,18 @@ private static final String TAG = MainActivity.class.getSimpleName();
         mNavigationDrawerItemTitles= getResources().getStringArray(R.array.navigation_drawer_items_array);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerList = (ListView) findViewById(R.id.left_drawer);
-
+        auth = FirebaseAuth.getInstance();
         setupToolbar();
 
-        DataModel[] drawerItem = new DataModel[2];
+        DataModel[] drawerItem = new DataModel[7];
 
         drawerItem[0] = new DataModel(R.drawable.common_google_signin_btn_text_dark, "Home");
         drawerItem[1] = new DataModel(R.drawable.common_google_signin_btn_text_dark, "Graph");
+        drawerItem[2] = new DataModel(R.drawable.common_google_signin_btn_text_dark, "Notifications");
+        drawerItem[3] = new DataModel(R.drawable.common_google_signin_btn_text_dark, "Complaint");
+        drawerItem[4] = new DataModel(R.drawable.common_google_signin_btn_text_dark, "User Details");
+        drawerItem[5] = new DataModel(R.drawable.common_google_signin_btn_text_dark, "Contact Us");
+        drawerItem[6] = new DataModel(R.drawable.common_google_signin_btn_text_dark, "Log Out");
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         getSupportActionBar().setHomeButtonEnabled(true);
 
@@ -95,6 +101,21 @@ private static final String TAG = MainActivity.class.getSimpleName();
                 break;
             case 2:
                 fragment = new NotiFragment();
+                break;
+            case 3:
+                fragment = new ComplaintFragment();
+                break;
+            case 4:
+                fragment = new UserDetailsFragment();
+                break;
+            case 5:
+                fragment = new ContactUsFragment();
+                break;
+            case 6:
+                auth.signOut();
+                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                startActivity(intent);
+                finish();
                 break;
             default:
                 fragment = new HomeFragment();

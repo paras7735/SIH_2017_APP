@@ -14,12 +14,20 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.data.ChartData;
+import com.github.mikephil.charting.data.PieData;
+import com.github.mikephil.charting.data.PieDataSet;
+import com.github.mikephil.charting.data.PieEntry;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class HomeFragment extends Fragment {
 
@@ -33,14 +41,19 @@ public class HomeFragment extends Fragment {
     private FirebaseDatabase mFirebaseInstance;
     private DatabaseReference mFirebaseDatabase2;
     private FirebaseAuth auth;
+    PieChart chart;
     String userId;
+    ChartData Cdata;
+    PieDataSet dataSet;
+    List<PieEntry> entries;
+    PieData pieData ;
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         final View rootView = inflater.inflate(R.layout.fragment_home, container, false);
-        txtDetails = (TextView) rootView.findViewById(R.id.txt_user);
+//        txtDetails = (TextView) rootView.findViewById(R.id.txt_user);
         final TextView daily = (TextView) rootView.findViewById(R.id.daily);
         btnSave = (Button) rootView.findViewById(R.id.btn_save);
 
@@ -58,6 +71,11 @@ public class HomeFragment extends Fragment {
 
         mFirebaseDatabase2.orderByChild("userId").equalTo(userId).keepSynced(true);
         //addUserChangeListener()
+        chart = (PieChart) rootView.findViewById(R.id.charthome);
+        entries = new ArrayList<>();
+
+        pieData = new PieData();
+        dataSet = new PieDataSet(entries, "Label");
         mFirebaseDatabase.orderByChild(userId).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -72,14 +90,42 @@ public class HomeFragment extends Fragment {
 
             }
         });
+        final Integer[] ias = {0};
         mFirebaseDatabase2.orderByChild("userId").equalTo(userId).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+
                 Log.e("meter data",dataSnapshot+"");
+
                 DataSnapshot firstChild = dataSnapshot.getChildren().iterator().next();
                 MeterData data = firstChild.getValue(MeterData.class);
+                Float fl= Float.parseFloat(data.quality);
+                Log.e("jhhg",fl+"");
 
-                txtDetails.setText("Quality\n"+data.quality);
+                dataSet.clear();
+                dataSet.addEntry(new PieEntry(fl,data.quality));
+                dataSet.addEntry(new PieEntry(10-fl,data.quality));
+
+                Log.e("below entry 2",dataSet+"");
+                Log.e("below notify","d,fjh");
+                chart.setCenterText(data.quality);
+                chart.setCenterTextSize(80);
+                dataSet.setColors(new int[]{R.color.colorPrimaryDark,R.color.colorPrimary},rootView.getContext());
+                if (ias[0] ==0) {   
+                    pieData.addDataSet(dataSet);
+                    chart.setData(pieData);
+
+                }else{
+                    pieData.notifyDataChanged();
+                    chart.notifyDataSetChanged();
+                    chart.invalidate();
+                }
+
+                Log.e("after invalidate","kasj");
+
+                ias[0] =1;
+
+//                txtDetails.setText("Quality\n"+data.quality);
 
             }
 
@@ -88,7 +134,7 @@ public class HomeFragment extends Fragment {
 
             }
         });
-
+        chart.getLegend().setTextSize(11f);
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
