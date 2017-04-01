@@ -6,34 +6,21 @@
         android:id="@+id/spinner1"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:popupBackground="#FFFF99"
-        android:textAlignment="center"
-        android:gravity="center"/>
-    <TextView
-        android:padding="20dp"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:paddingRight="30dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Message"/>
+        android:popupBackground="#FFFF99"/>
     <EditText
         android:id="@+id/et_message"
         android:padding="20dp"
+        android:hint="Message"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:paddingRight="30dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
-    <TextView
-        android:padding="20dp"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:paddingRight="30dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Phone Number"/>
+
     <EditText
         android:id="@+id/et_phone"
         android:padding="20dp"
         android:textAppearance="?android:attr/textAppearanceMedium"
+        android:hint="Phone Number"
         android:paddingRight="30dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />

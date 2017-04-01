@@ -48,7 +48,7 @@ public class ComplaintFragment extends Fragment {
         phone = (EditText)rootView.findViewById(R.id.et_phone);
         submit = (Button)rootView.findViewById(R.id.btn_submitComplaint);
 
-        String[] data = {"a","b","c"};
+        String[] data = {"Billing Problem","Water Quality Problem","New Connection Required","Meter Problem"};
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(rootView.getContext(), android.R.layout.simple_spinner_dropdown_item, data);
         lv.setAdapter(adapter);
         submit.setOnClickListener(new View.OnClickListener() {
