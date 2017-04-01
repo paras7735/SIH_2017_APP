@@ -94,8 +94,8 @@ public class LoginActivity extends AppCompatActivity {
                                         Toast.makeText(LoginActivity.this, getString(R.string.auth_failed), Toast.LENGTH_LONG).show();
                                     }
                                 } else {
-                                    User user = new User(email, password,"");
-                                    String uid = auth.getCurrentUser().getUid().toString();
+                                    /*User user = new User(email, password,"");
+                                    String uid = auth.getCurrentUser().getUid().toString();*/
                                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                                     startActivity(intent);
 

@@ -6,7 +6,8 @@
     <com.github.mikephil.charting.charts.PieChart
         android:id="@+id/charthome"
         android:layout_width="match_parent"
-        android:layout_height="500dp"
+        android:layout_marginTop="30dp"
+        android:layout_height="300dp"
         android:gravity="center"/>
 
     <LinearLayout
@@ -27,15 +28,11 @@
             android:text="Estimated"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/textView"
+            android:id="@+id/tv_price"
             android:layout_weight="1"
             android:gravity="center"/>
     </LinearLayout>
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/btn_save"
-        android:text="Sign out"/>
+
 
 </LinearLayout>

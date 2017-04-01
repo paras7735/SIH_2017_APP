@@ -4,22 +4,22 @@ package app.alchemist.sih2017.alchemist;
  * Created by Prasanna on 3/20/2017.
  */
 
-import android.content.Intent;
+import android.app.Notification;
+import android.app.NotificationManager;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.PieChart;
-import com.github.mikephil.charting.data.ChartData;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -29,25 +29,24 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import static android.content.Context.NOTIFICATION_SERVICE;
+
 public class HomeFragment extends Fragment {
 
     public HomeFragment() {
     }
 
 
-    private TextView txtDetails;
-    private Button btnSave;
     private DatabaseReference mFirebaseDatabase;
     private FirebaseDatabase mFirebaseInstance;
     private DatabaseReference mFirebaseDatabase2;
     private FirebaseAuth auth;
     PieChart chart;
     String userId;
-    ChartData Cdata;
     PieDataSet dataSet;
     List<PieEntry> entries;
     PieData pieData ;
-
+    Integer sum;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -55,7 +54,7 @@ public class HomeFragment extends Fragment {
         final View rootView = inflater.inflate(R.layout.fragment_home, container, false);
 //        txtDetails = (TextView) rootView.findViewById(R.id.txt_user);
         final TextView daily = (TextView) rootView.findViewById(R.id.daily);
-        btnSave = (Button) rootView.findViewById(R.id.btn_save);
+        final TextView cost = (TextView)rootView.findViewById(R.id.tv_price);
 
         auth = FirebaseAuth.getInstance();
         mFirebaseInstance = FirebaseDatabase.getInstance();
@@ -63,11 +62,10 @@ public class HomeFragment extends Fragment {
 
         userId=auth.getCurrentUser().getUid().toString();
         // get reference to 'users' node
-        mFirebaseDatabase = mFirebaseInstance.getReference("users").child(userId);
         mFirebaseDatabase2 = mFirebaseInstance.getReference("table").child("nodes");
-        mFirebaseDatabase.keepSynced(true);
         mFirebaseInstance.getReference("dailyusage").child(userId).keepSynced(true);
         mFirebaseDatabase = mFirebaseInstance.getReference("dailyusage").child(userId);
+        mFirebaseDatabase.keepSynced(true);
 
         mFirebaseDatabase2.orderByChild("userId").equalTo(userId).keepSynced(true);
         //addUserChangeListener()
@@ -75,14 +73,30 @@ public class HomeFragment extends Fragment {
         entries = new ArrayList<>();
 
         pieData = new PieData();
-        dataSet = new PieDataSet(entries, "Label");
-        mFirebaseDatabase.orderByChild(userId).addValueEventListener(new ValueEventListener() {
+        dataSet = new PieDataSet(entries, "");
+        sum = 0;
+        mFirebaseDatabase.addChildEventListener(new ChildEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                Log.e("meter datjnnonoa",dataSnapshot+"");
-                String data = (String) dataSnapshot.getValue().toString();
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                Long data = (Long) dataSnapshot.getValue();
+                daily.setText("Daily usage :-  "+data);
+                sum+=data.intValue()*4;
+                cost.setText("Estimated cost :-  "+sum);
+            }
 
-                daily.setText("Daily Usage\n"+data);
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
             }
 
             @Override
@@ -101,17 +115,15 @@ public class HomeFragment extends Fragment {
                 MeterData data = firstChild.getValue(MeterData.class);
                 Float fl= Float.parseFloat(data.quality);
                 Log.e("jhhg",fl+"");
-
                 dataSet.clear();
-                dataSet.addEntry(new PieEntry(fl,data.quality));
-                dataSet.addEntry(new PieEntry(10-fl,data.quality));
-
-                Log.e("below entry 2",dataSet+"");
-                Log.e("below notify","d,fjh");
+                dataSet.addEntry(new PieEntry(fl));
+                dataSet.addEntry(new PieEntry(10-fl));
+                dataSet.setDrawValues(false);
                 chart.setCenterText(data.quality);
                 chart.setCenterTextSize(80);
-                dataSet.setColors(new int[]{R.color.colorPrimaryDark,R.color.colorPrimary},rootView.getContext());
-                if (ias[0] ==0) {   
+                dataSet.setColors(new int[]{R.color.nav_background,R.color.input_login_hint},rootView.getContext());
+                chart.setHoleRadius(90);
+                if (ias[0]==0) {
                     pieData.addDataSet(dataSet);
                     chart.setData(pieData);
 
@@ -120,11 +132,14 @@ public class HomeFragment extends Fragment {
                     chart.notifyDataSetChanged();
                     chart.invalidate();
                 }
+                if((fl>5)&&(ias[0]!=0)){
+                    Notification n = new Notification.Builder(rootView.getContext()).setContentTitle("Water Quality").setContentText("Please Dont use water because the quality of water is very low currently").setSmallIcon(R.drawable.logo).build();
+                    NotificationManager notificationManager =(NotificationManager)rootView.getContext().getSystemService(NOTIFICATION_SERVICE);
 
-                Log.e("after invalidate","kasj");
+                    notificationManager.notify(0, n);
+                }
 
                 ias[0] =1;
-
 //                txtDetails.setText("Quality\n"+data.quality);
 
             }
@@ -134,18 +149,7 @@ public class HomeFragment extends Fragment {
 
             }
         });
-        chart.getLegend().setTextSize(11f);
-        btnSave.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                auth.signOut();
-                Intent intent = new Intent(rootView.getContext(), LoginActivity.class);
-                startActivity(intent);
-            }
-        });
-
-
-
+        chart.getLegend().setEnabled(false);
 
 
         return rootView;

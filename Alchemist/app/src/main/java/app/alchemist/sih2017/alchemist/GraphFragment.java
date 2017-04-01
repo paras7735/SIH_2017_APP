@@ -37,6 +37,8 @@ public class GraphFragment extends Fragment{
     LineDataSet dataSet;
     List<Entry> entries;
     LineData lineData ;
+    LineDataSet dataSet2;
+    LineData lineData2;
 
     LineGraphSeries<DataPoint> series;
     @Override
@@ -62,6 +64,8 @@ public class GraphFragment extends Fragment{
         });*/
         lineData = new LineData();
         dataSet = new LineDataSet(entries, "Label");
+        //lineData2 = new LineData();
+        //dataSet2 = new LineDataSet(entries, "Label");
 
         mFirebaseDatabase.addChildEventListener(new ChildEventListener() {
             @Override
@@ -69,6 +73,8 @@ public class GraphFragment extends Fragment{
                 Long data = (Long) dataSnapshot.getValue();
                 Log.e("ese",dataSnapshot+"");
                 dataSet.addEntry(new Entry(i, data));
+                //dataSet2.addEntry(new Entry(i, 13));
+
                 dataSet.notifyDataSetChanged();
                 i++;
             }
@@ -97,7 +103,11 @@ public class GraphFragment extends Fragment{
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Log.e("Sdsd",""+dataSet+"####sdjasdg");
+                dataSet.setColor(R.color.nav_background);
+                dataSet.setLineWidth(6);
+                dataSet.setMode(LineDataSet.Mode.CUBIC_BEZIER);
                 lineData.addDataSet(dataSet);
+                //lineData.addDataSet(dataSet2);
                 chart.setData(lineData);
                 chart.invalidate();
 

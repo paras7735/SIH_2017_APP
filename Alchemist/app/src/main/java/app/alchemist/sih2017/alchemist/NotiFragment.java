@@ -40,7 +40,6 @@ public class NotiFragment extends Fragment {
         final View rootView = inflater.inflate(R.layout.fragment_home, container, false);
         //txtDetails = (TextView) rootView.findViewById(R.id.txt_user);
         final TextView daily = (TextView) rootView.findViewById(R.id.daily);
-        btnSave = (Button) rootView.findViewById(R.id.btn_save);
         auth = FirebaseAuth.getInstance();
         mFirebaseInstance = FirebaseDatabase.getInstance();
 

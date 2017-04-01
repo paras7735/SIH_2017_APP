@@ -20,12 +20,7 @@ public class ContactUsFragment extends Fragment {
     TextView phone;
     TextView email;
     TextView address;
-    TextView birthdate;
-    TextView gender;
-    TextView department;
-    TextView year;
-    TextView institute;
-    TextView state;
+    TextView title;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -36,12 +31,8 @@ public class ContactUsFragment extends Fragment {
         phone = (TextView)rootView.findViewById(R.id.tv_Phone);
         email = (TextView)rootView.findViewById(R.id.tv_Email);
         address = (TextView)rootView.findViewById(R.id.tv_Address);
-        birthdate = (TextView)rootView.findViewById(R.id.tv_Bdate);
-        gender = (TextView)rootView.findViewById(R.id.tv_Gender);
-        institute = (TextView)rootView.findViewById(R.id.tv_Institute);
-        state = (TextView)rootView.findViewById(R.id.tv_State);
-        department = (TextView)rootView.findViewById(R.id.tv_Department);
-        year = (TextView)rootView.findViewById(R.id.tv_Year);
+        title = (TextView)rootView.findViewById(R.id.textView9);
+        title.setText("Supplier Details");
 
         return rootView;
     }
