@@ -43,12 +43,13 @@ else if($user->is_logged_in() && $_SESSION['position']==0){
 </head>
 <body style="background:url(images/4.png);">
 <div class="navbar-fixed" style="height: 50px;">
-<nav style="height: 50px;line-height: 50px;background-color:rgba(187,28,33,0.9);z-index: 100;...">
+<nav style="height: 50px;line-height: 50px;background-color:rgba(187,28,33,0.9);z-index: 100;">
     <div class="nav-wrapper" >
-      <a href="#" class="brand-logo" style="margin-left: 15px;font-family: 'Open Sans', sans-serif;font-size: 25px;">Alchemist</a>
+      <a href="supplier.php" class="brand-logo" style="margin-left: 15px;font-family: 'Open Sans', sans-serif;font-size: 25px;">Alchemist</a>
       <ul id="nav-mobile" class="right hide-on-med-and-down" style="font-family: 'Open Sans', sans-serif;">
+        <li><a href="#modal4" class="modal-trigger">Flow Chart-Nodes</a></li>
         <li><a href="sass.html">Profile</a></li>
-        <li><a href="badges.html">Contact List</a></li>
+        <li><a href="contact.php">Contact List</a></li>
         <li><a id="lout">Logout</a></li>
       </ul>
     </div>
@@ -61,49 +62,6 @@ else if($user->is_logged_in() && $_SESSION['position']==0){
   <center><h1 style="color:white;font-family: 'Open Sans', sans-serif;">Potable Water Supply</h1></center>
   </div>
 </div>
-<!-- <div class="row">
-    <div class="col s8 offset-s2">
-      <ul class="tabs">
-        <li class="tab col s3"><a href="#test1">Quality</a></li>
-        <li class="tab col s3"><a href="#test2">Quantity</a></li>
-        
-      </ul>
-    </div>
-    
-    
-  </div>
-
-<div class="row">
-<div id="test1" class="col s8 offset-s2" style="padding: 0;">
-        <div class="taskHead cyan accent-4" ><h5>Quality Load</h5></div>
-        <table class="bordered">
-              <thead>
-                  <tr>
-                      <th data-field="id">Parent ID</th>
-                      <th data-field="name">House ID</th>
-                      <th data-field="qual">Quality</th>
-                  </tr>
-              </thead>
-              <tbody id="tableBody">
-                  
-              </tbody>
-            </table>
-</div>
-<div id="test2" class="col s8 offset-s2" style="padding: 0;">
-        <div class="taskHead cyan accent-4" ><h5>Quantity Load</h5></div>
-        <table class="bordered">
-              <thead>
-                  <tr>
-                      <th data-field="id">Parent ID</th>
-                      <th data-field="name">Difference</th>
-                  </tr>
-              </thead>
-              <tbody id="tableBody2">
-                  
-              </tbody>
-            </table>
-</div>
-</div> -->
 <div class="row">
   <div class="col s3 offset-s1" style="margin-left: 175px;">
     <!-- <img src="images/1.png" style="transform: scale(0.8);z-index: 50;"> -->
@@ -118,6 +76,15 @@ else if($user->is_logged_in() && $_SESSION['position']==0){
     </div>
   </div>
 </div> 
+<div id="modal4" class="modal modal-fixed-footer">
+          <div class="modal-content">
+            <h4>FlowChart</h4>
+            <img src="images/flowchart.png" style="transform: scale(0.3);">
+          </div>
+          <div class="modal-footer">
+            <a href="#!" class="modal-action modal-close waves-effect waves-red btn-flat ">Close</a>
+          </div>
+  </div>
   <div id="modal2" class="modal modal-fixed-footer">
           <div class="modal-content">
             <h4>Quality Problem</h4>
@@ -125,7 +92,7 @@ else if($user->is_logged_in() && $_SESSION['position']==0){
               <thead>
                   <tr>
                       <th data-field="id">Parent ID</th>
-                      <th data-field="name">House ID</th>
+                      <th data-field="name">Meter ID</th>
                       <th data-field="qual">Quality</th>
                   </tr>
               </thead>

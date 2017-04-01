@@ -72,6 +72,18 @@ Class User {
             return $e->getMessage();  
         }
     }
+    public function contact_list(){
+        try{
+            $query1 = $this->_db->prepare('SELECT * FROM contact');
+            $query1->execute();
+            $results=$query1->fetchAll(PDO::FETCH_ASSOC);
+            
+            return $results;
+
+        }catch (PDOException $e) {
+            return $e->getMessage();  
+        }
+    }
   
     
 }

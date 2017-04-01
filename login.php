@@ -16,6 +16,11 @@ if($user->is_logged_in()) {
 		<script src="js/materialize.min.js"></script>
     <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 	<script src="https://www.gstatic.com/firebasejs/3.7.2/firebase.js"></script>
+  <style type="text/css">
+  body {
+    background-image: url(images/4.png);
+  }
+  </style>
 </head>
 <body> 
 
@@ -24,7 +29,7 @@ if($user->is_logged_in()) {
   <div class="anyForm loginform">
     <div class="container white z-depth-5">
       <div class="row">
-        <h2 class="center">Login Portal</h2>
+        <h2 class="center" style="padding: 20px">Login Portal</h2>
         <form class="col s10 offset-s1">
           <div class="row">
             <div class="input-field col s8 offset-s2">
@@ -39,7 +44,7 @@ if($user->is_logged_in()) {
             </div>
             </form>
             <div class="center">
-              <button class="waves-effect waves-light btn amber darken-2 logIn" id="submit">Log in<i class="material-icons right">send</i></button>
+              <button class="waves-effect waves-light btn darken-2 logIn" id="submit" style="background-color:#3892A3; ">Log in<i class="material-icons right">send</i></button>
             </div>
           </div>
         

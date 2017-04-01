@@ -13,10 +13,13 @@ function dbupdate() {
       , is_home:arr[i-1].is_home, updated_at:arr[i-1].updated_at, userId:arr[i-1].userId  }
       }
       
-      var response=qualitydrop(nodes,arr.length);
-      $('#tableBody').html(response);
+      // var response=qualitydrop_home(nodes,arr.length);
+      // $('#tableBody').html(response);
       var response2=theft(nodes,arr.length);
       $('#tableBody2').html(response2);
+      var response3=qualitydrop_source(nodes,arr.length);
+      $('#tableBody').html(response3);
+
     },
     error: function(result) {
       console.log('kjbklj');
@@ -46,18 +49,18 @@ function dbupdate() {
   for(var k=1;k<m+1;k++){
     i=nodes2[k]['parent'];
     if(i!=-1){
-      console.log(i+"--"+nodes2[k]['sum']+"--"+nodes[i]['quantity']);
+      // console.log(i+"--"+nodes2[k]['sum']+"--"+nodes[i]['quantity']);
       if(nodes2[k]['sum']!=nodes[i]['quantity']){
         diff=(-parseInt(nodes2[k]['sum'])+parseInt(nodes[i]['quantity']));
     // msg[i] = { "id":i}
     //the i here will give the id of the meter after which there is a leakage
 
-        console.log("please check line after meter with id(theft):-"+i);
+        // console.log("please check line after meter with id(theft):-"+i);
         string2 += "<tr><td>"+i+"</td><td>"+diff+"</td></tr>";
       }
     }else{
-      console.log(i+"--"+nodes2[k]['sum']+"--"+nodes[0]['quantity'])
-      console.log(i+"--"+nodes2[k]['sum']+"--"+nodes[0]['quantity'])
+      // console.log(i+"--"+nodes2[k]['sum']+"--"+nodes[0]['quantity'])
+      // console.log(i+"--"+nodes2[k]['sum']+"--"+nodes[0]['quantity'])
     }
   }
   //console.log("after for loop");
@@ -65,29 +68,61 @@ function dbupdate() {
   }
 
 
-function qualitydrop(nodes,length){
+function qualitydrop_home(nodes,length){
   var sum,i,j,quality,string;
   var m=0;
   var nodes2 = {};
   for(i=0;i<length;i++){
       quality=parseFloat(nodes[i]["quality"]);
-      if(parseFloat(quality)>8 || parseFloat(quality)<6){
-      nodes2[m]={"parent":nodes[i]["parent"],"quality":quality,"id":nodes[i]["id"]};
-      console.log(nodes2[m]);
-      m++;
+      is_home=nodes[i]["is_home"];
+      if (is_home==1) {
+        if(parseFloat(quality)>8 || parseFloat(quality)<6){
+        nodes2[m]={"parent":nodes[i]["parent"],"quality":quality,"id":nodes[i]["id"]};
+        // console.log(nodes2[m]);
+        m++;
+      }
     }
-      
   }
   for(var k=0;k<m;k++){
          i=nodes2[k]['parent'];
          hid=nodes2[k]['id'];
          qual=parseFloat(nodes2[k]['quality']);
-         console.log("Please check line after meter with id(quality load):-"+i+" in the house ID: "+hid);
+         // console.log("Please check line after meter with id(quality load):-"+i+" in the house ID: "+hid);
          string += "<tr><td>"+i+"</td><td>"+hid+"</td><td>"+qual+"</td></tr>";
       
   }
   return string;
   }
+
+  function qualitydrop_source(nodes,length){
+    var sum,i,j,quality,string3,qual_parent,hid;
+    var m=0;
+    var nodes2 = {};
+    for(i=0;i<length;i++){
+          quality5=parseFloat(nodes[i]["quality"]);
+          nodes2[m]={"parent":nodes[i]["parent"],"quality":quality5,"id":nodes[i]["id"]};
+          console.log(nodes2[m]);
+          m++;
+    }
+    for(var k=1;k<m;k++){
+      i=nodes2[k]['parent'];
+      console.log(i);
+
+      qual_parent=parseFloat(nodes[i]["quality"]);
+      if(i!=-1){
+        if(nodes2[k]['quality']!=qual_parent){
+          hid=nodes2[k]['id'];
+          qual2=nodes2[k]['quality'];
+          string3 += "<tr><td>"+i+"</td><td>"+hid+"</td><td>"+qual2+"</td></tr>";
+        }
+      }
+    }
+    return string3;
+  }
+
+
+
+  
   
 
   $("#lout").click(function(){
@@ -117,7 +152,7 @@ function qualitydrop(nodes,length){
       endingTop: '10%', // Ending top style attribute
       ready: function(modal, trigger) { // Callback for Modal open. Modal and trigger parameters available.
         // alert("Ready");
-        console.log(modal, trigger);
+        // console.log(modal, trigger);
       },
       // complete: function() { alert('Closed'); } // Callback for Modal close
     }
