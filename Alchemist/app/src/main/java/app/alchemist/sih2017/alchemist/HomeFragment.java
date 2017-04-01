@@ -12,7 +12,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.PieData;
@@ -42,19 +41,24 @@ public class HomeFragment extends Fragment {
     private DatabaseReference mFirebaseDatabase2;
     private FirebaseAuth auth;
     PieChart chart;
+    PieChart chart_lastdusage;
+    PieChart chart_cost;
     String userId;
     PieDataSet dataSet;
+    PieDataSet dataSet2;
+    PieDataSet dataSet3;
     List<PieEntry> entries;
+    List<PieEntry> entries2;
     PieData pieData ;
+    PieData pieData2 ;
+    PieData pieData3 ;
     Integer sum;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         final View rootView = inflater.inflate(R.layout.fragment_home, container, false);
 //        txtDetails = (TextView) rootView.findViewById(R.id.txt_user);
-        final TextView daily = (TextView) rootView.findViewById(R.id.daily);
-        final TextView cost = (TextView)rootView.findViewById(R.id.tv_price);
 
         auth = FirebaseAuth.getInstance();
         mFirebaseInstance = FirebaseDatabase.getInstance();
@@ -69,19 +73,32 @@ public class HomeFragment extends Fragment {
 
         mFirebaseDatabase2.orderByChild("userId").equalTo(userId).keepSynced(true);
         //addUserChangeListener()
-        chart = (PieChart) rootView.findViewById(R.id.charthome);
-        entries = new ArrayList<>();
 
+
+
+
+        chart = (PieChart) rootView.findViewById(R.id.charthome);
+        chart_lastdusage = (PieChart) rootView.findViewById(R.id.chart_lastdusage);
+        chart_cost = (PieChart) rootView.findViewById(R.id.chart_cost);
+
+
+
+        entries = new ArrayList<>();
+        entries2 = new ArrayList<>();
         pieData = new PieData();
+        pieData2 = new PieData();
+        pieData3 = new PieData();
         dataSet = new PieDataSet(entries, "");
+        dataSet2 = new PieDataSet(entries, "");
         sum = 0;
+        final Integer[] first_time={0};
+
         mFirebaseDatabase.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 Long data = (Long) dataSnapshot.getValue();
-                daily.setText("Daily usage :-  "+data);
                 sum+=data.intValue()*4;
-                cost.setText("Estimated cost :-  "+sum);
+                Log.e("sum+= ",sum+"");
             }
 
             @Override
@@ -97,6 +114,71 @@ public class HomeFragment extends Fragment {
             @Override
             public void onChildMoved(DataSnapshot dataSnapshot, String s) {
 
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+        mFirebaseDatabase.limitToLast(1).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                DataSnapshot firstChild = dataSnapshot.getChildren().iterator().next();
+                Float fl= Float.parseFloat(firstChild.getValue().toString());
+                Log.e("sum in askd",sum+"");
+                Double x =  (Math.floor(fl/5));
+                Integer y = x.intValue()+1;
+                float z = y*5;
+
+                float a = z-fl;
+                Integer b = 1000-sum;
+
+
+
+                entries2.clear();
+                entries2.add(new PieEntry(sum));
+                entries2.add(new PieEntry(b));
+                dataSet3= new PieDataSet(entries2,"sdd");
+                dataSet3.setDrawValues(false);
+                chart_cost.setCenterText("₹"+sum);
+                chart_cost.setCenterTextSize(40);
+                dataSet3.setColors(new int[]{R.color.piechart3,R.color.piechart_secondary},rootView.getContext());
+                chart_cost.setHoleRadius(90);
+
+                dataSet2.clear();
+                dataSet2.addEntry(new PieEntry(fl));
+                dataSet2.addEntry(new PieEntry(a));
+                dataSet2.setDrawValues(false);
+                chart_lastdusage.setCenterText(fl+"");
+                chart_lastdusage.setCenterTextSize(40);
+                dataSet2.setColors(new int[]{R.color.piechart2,R.color.piechart_secondary},rootView.getContext());
+                chart_lastdusage.setHoleRadius(90);
+
+
+
+                Log.e("15-fl and fl",a+" and "+fl);
+                Log.e("10000-b and sum",b+" and "+sum);
+
+                if (first_time[0]==0) {
+                    pieData2.notifyDataChanged();
+                    pieData2.addDataSet(dataSet2);
+                    chart_lastdusage.setData(pieData2);
+                    chart_lastdusage.invalidate();
+
+                    pieData3.notifyDataChanged();
+                    pieData3.addDataSet(dataSet3);
+                    chart_cost.setData(pieData3);
+                    chart_cost.invalidate();
+                }else{
+                    chart_lastdusage.notifyDataSetChanged();
+                    chart_lastdusage.invalidate();
+
+                    chart_cost.notifyDataSetChanged();
+                    chart_cost.invalidate();
+
+                }
+                first_time[0]=1;
             }
 
             @Override
@@ -121,14 +203,16 @@ public class HomeFragment extends Fragment {
                 dataSet.setDrawValues(false);
                 chart.setCenterText(data.quality);
                 chart.setCenterTextSize(80);
-                dataSet.setColors(new int[]{R.color.nav_background,R.color.input_login_hint},rootView.getContext());
+                dataSet.setColors(new int[]{R.color.piechart1,R.color.piechart_secondary},rootView.getContext());
                 chart.setHoleRadius(90);
                 if (ias[0]==0) {
-                    pieData.addDataSet(dataSet);
-                    chart.setData(pieData);
-
-                }else{
                     pieData.notifyDataChanged();
+                    pieData.addDataSet(dataSet);
+                    pieData.setHighlightEnabled(true);
+                    chart.setData(pieData);
+                    pieData.setHighlightEnabled(true);
+                    chart.invalidate();
+                }else{
                     chart.notifyDataSetChanged();
                     chart.invalidate();
                 }
@@ -150,7 +234,12 @@ public class HomeFragment extends Fragment {
             }
         });
         chart.getLegend().setEnabled(false);
+        chart_lastdusage.getLegend().setEnabled(false);
+        chart_cost.getLegend().setEnabled(false);
 
+        chart.getDescription().setText("");
+        chart_lastdusage.getDescription().setText("");
+        chart_cost.getDescription().setText("");
 
         return rootView;
     }

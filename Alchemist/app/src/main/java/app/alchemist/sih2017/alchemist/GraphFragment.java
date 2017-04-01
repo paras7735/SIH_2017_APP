@@ -11,6 +11,7 @@ import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -36,6 +37,7 @@ public class GraphFragment extends Fragment{
     LineChart chart;
     LineDataSet dataSet;
     List<Entry> entries;
+    List<Entry> entries2;
     LineData lineData ;
     LineDataSet dataSet2;
     LineData lineData2;
@@ -55,6 +57,7 @@ public class GraphFragment extends Fragment{
 
         chart = (LineChart)rootView.findViewById(R.id.graph_dusage);
         entries = new ArrayList<>();
+        entries2 = new ArrayList<>();
         /*series = new LineGraphSeries<>(new DataPoint[] {
                 new DataPoint(0, 1),
                 new DataPoint(1, 5),
@@ -63,19 +66,17 @@ public class GraphFragment extends Fragment{
                 new DataPoint(5, 6)
         });*/
         lineData = new LineData();
-        dataSet = new LineDataSet(entries, "Label");
-        //lineData2 = new LineData();
-        //dataSet2 = new LineDataSet(entries, "Label");
 
+        final List<ILineDataSet> dataSets = new ArrayList<ILineDataSet>();
         mFirebaseDatabase.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 Long data = (Long) dataSnapshot.getValue();
                 Log.e("ese",dataSnapshot+"");
-                dataSet.addEntry(new Entry(i, data));
-                //dataSet2.addEntry(new Entry(i, 13));
+                entries.add(new Entry(i, data));
+                entries2.add(new Entry(i, 13));
 
-                dataSet.notifyDataSetChanged();
+                //dataSet.notifyDataSetChanged();
                 i++;
             }
 
@@ -102,13 +103,17 @@ public class GraphFragment extends Fragment{
         mFirebaseDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                Log.e("Sdsd",""+dataSet+"####sdjasdg");
+                dataSet = new LineDataSet(entries, "Daily usage in litres");
+                //lineData2 = new LineData();
+                dataSet2 = new LineDataSet(entries2, "Recommended usage in litres");
                 dataSet.setColor(R.color.nav_background);
                 dataSet.setLineWidth(6);
                 dataSet.setMode(LineDataSet.Mode.CUBIC_BEZIER);
-                lineData.addDataSet(dataSet);
-                //lineData.addDataSet(dataSet2);
-                chart.setData(lineData);
+                dataSet2.setLineWidth(6 );
+                dataSets.add(dataSet);
+                dataSets.add(dataSet2);
+                LineData data = new LineData(dataSets);
+                chart.setData(data);
                 chart.invalidate();
 
             }

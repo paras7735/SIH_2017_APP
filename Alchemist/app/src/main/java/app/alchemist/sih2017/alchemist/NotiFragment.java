@@ -39,7 +39,6 @@ public class NotiFragment extends Fragment {
 
         final View rootView = inflater.inflate(R.layout.fragment_home, container, false);
         //txtDetails = (TextView) rootView.findViewById(R.id.txt_user);
-        final TextView daily = (TextView) rootView.findViewById(R.id.daily);
         auth = FirebaseAuth.getInstance();
         mFirebaseInstance = FirebaseDatabase.getInstance();
 
@@ -60,7 +59,6 @@ public class NotiFragment extends Fragment {
                 Log.e("meter datjnnonoa", dataSnapshot + "");
                 String data = (String) dataSnapshot.toString();
 
-                daily.setText("Daily Usage\n" + data);
             }
 
             @Override

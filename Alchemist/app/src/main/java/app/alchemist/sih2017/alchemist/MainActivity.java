@@ -57,10 +57,10 @@ private static final String TAG = MainActivity.class.getSimpleName();
 
         drawerItem[0] = new DataModel(R.drawable.home, "Home");
         drawerItem[1] = new DataModel(R.drawable.graph, "Daily Usage");
-        drawerItem[2] = new DataModel(R.drawable.common_google_signin_btn_text_dark, "Complaint");
-        drawerItem[3] = new DataModel(R.drawable.common_google_signin_btn_text_dark, "User Details");
-        drawerItem[4] = new DataModel(R.drawable.common_google_signin_btn_text_dark, "Contact Us");
-        drawerItem[5] = new DataModel(R.drawable.common_google_signin_btn_text_dark, "Log Out");
+        drawerItem[2] = new DataModel(R.drawable.complaint, "Complaint");
+        drawerItem[3] = new DataModel(R.drawable.user, "User Details");
+        drawerItem[4] = new DataModel(R.drawable.contact, "Contact Us");
+        drawerItem[5] = new DataModel(R.drawable.logout, "Log Out");
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         getSupportActionBar().setHomeButtonEnabled(true);
 
