@@ -20,6 +20,5 @@ catch(PDOException $e)
 }
 require_once "modals/user.php";
 
-//Initialize User class
 $user = new User($conn);
 ?>

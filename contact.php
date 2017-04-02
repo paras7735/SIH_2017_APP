@@ -1,6 +1,4 @@
 <?php
-// error_reporting(E_ALL);
-// ini_set('display_errors', 1);
 require_once 'connect.php';
 if($user->is_not_logged_in()) {
   header('Location: login.php');

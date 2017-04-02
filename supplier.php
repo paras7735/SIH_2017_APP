@@ -1,6 +1,4 @@
 <?php
-// error_reporting(E_ALL);
-// ini_set('display_errors', 1);
 require_once 'connect.php';
 if($user->is_not_logged_in()) {
   header('Location: login.php');
@@ -29,7 +27,6 @@ else if($user->is_logged_in() && $_SESSION['position']==0){
 body {
         font-family: "Lato Light", Arial; 
         height: 100%;
-        /*overflow: hidden;*/
        
       }
   #quali_bubble{
@@ -77,7 +74,7 @@ td{
     <div class="nav-wrapper" >
       <a href="supplier.php" class="brand-logo" style="margin-left: 15px;font-family: 'Open Sans', sans-serif;font-size: 1.2rem;">Alchemist</a>
       <ul id="nav-mobile" class="right hide-on-med-and-down" style="font-family: 'Open Sans', sans-serif;">
-        <li><a href="profile.html"><img src="images/user.png" style="transform: scale(0.6);float: left;margin-top: 0px;left: -10px;"> Profile</a></li>
+        <li><a href="profile.html"><img src="images/user.png" style="transform: scale(1);float: left;margin-top: 11px;left: -10px;"> Profile</a></li>
         <li><a href="contact.php"><img src="images/contact.png" style="transform: scale(0.95);float: left;margin-top: 10px;margin-left: -2px;">Contact List</a></li>
         <li><a id="lout"><img src="images/logout1.png" style="float: left;margin-left: -5px;margin-top: 12px;">Logout</a></li>
       </ul>
@@ -110,14 +107,12 @@ td{
 
 <div class="row">
   <div class="col s6">
-    <!-- <img src="images/1.png" style="transform: scale(0.8);z-index: 50;"> -->
     <div style="background: url(images/8.png);width:300px ;height:300px; margin-left: 120px;">
     <a href="#modal2" class="modal-trigger"><img id="quali" src="images/2.png" style="z-index: 80;margin-left: 32px;margin-top: -10px;"></a>
     <center><p style="font-size: 15px;margin-top: -50px;color: white;" id="quali_bubble">Quality Problems</p></center>
     </div>
   </div>
   <div class="col s4">
-    <!-- <img src="images/1.png" style="transform: scale(0.8);z-index: 50;"> -->
     <div style="background: url(images/8.png);width:300px ;height:300px;margin-left: 40px;">
     <a href="#modal3" class="modal-trigger"><img id="quant" src="images/3.png" style="z-index: 80;margin-left: 32px;margin-top: -10px;"></a>
     <center><p style="font-size: 15px;margin-top: -50px;color: white;" id="quant_bubble">Quantity Problems</p></center>
