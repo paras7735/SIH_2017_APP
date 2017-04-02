@@ -29,7 +29,7 @@ else if($user->is_logged_in() && $_SESSION['position']==0){
 body {
         font-family: "Lato Light", Arial; 
         height: 100%;
-        overflow: hidden;
+        /*overflow: hidden;*/
        
       }
   #quali_bubble{
@@ -67,22 +67,19 @@ td{
     word-wrap: break-word;
     width: 20px;
   }
-  table.fixed { table-layout:fixed; }
-table.fixed td { overflow: hidden; }
-
 
 </style>
 </head>
-<body style="background:url(images/4.png);">
+<body style="background:url(images/back.png);">
 
 <div class="navbar-fixed" style="height: 50px;">
-<nav style="height: 50px;line-height: 50px;background-color:rgba(187,28,33,0.9);z-index: 100;">
+<nav style="height: 50px;line-height: 50px;background-color:rgba(187,28,33,0.95);z-index: 100;">
     <div class="nav-wrapper" >
       <a href="supplier.php" class="brand-logo" style="margin-left: 15px;font-family: 'Open Sans', sans-serif;font-size: 1.2rem;">Alchemist</a>
       <ul id="nav-mobile" class="right hide-on-med-and-down" style="font-family: 'Open Sans', sans-serif;">
-        <li><a href="sass.html">Profile</a></li>
-        <li><a href="contact.php">Contact List</a></li>
-        <li><a id="lout">Logout</a></li>
+        <li><a href="profile.html"><img src="images/user.png" style="transform: scale(0.6);float: left;margin-top: 0px;left: -10px;"> Profile</a></li>
+        <li><a href="contact.php"><img src="images/contact.png" style="transform: scale(0.95);float: left;margin-top: 10px;margin-left: -2px;">Contact List</a></li>
+        <li><a id="lout"><img src="images/logout1.png" style="float: left;margin-left: -5px;margin-top: 12px;">Logout</a></li>
       </ul>
     </div>
   </nav>
@@ -141,6 +138,7 @@ table.fixed td { overflow: hidden; }
               <tbody id="tableBody">
                   
               </tbody>
+            
             </table>
           </div>
           <div class="modal-footer">
@@ -168,26 +166,11 @@ table.fixed td { overflow: hidden; }
           </div>
         </div>
 
-<!-- <footer class="page-footer" >
-          <div class="container">
-            <div class="row">
-              
-              <div class="col l4 offset-l2 s12">
-                <h5 class="white-text">Links</h5>
-                
-              </div>
-            </div>
-          </div>
-          <div class="footer-copyright" style="float: bottom;">
-            <div class="container">
-            © 2014 Copyright Text
-            <a class="grey-text text-lighten-4 right" href="#!">More Links</a>
-            </div>
-          </div>
-</footer> -->
+
 </div>
-<div class="col s4" style="background-color: rgba(255,255,255,0.85);height: 600px;padding: 10px;">
-  <table class="responsive-table striped">
+<div class="col s4" style="background-color: rgba(255,255,255,0.85);height: 614px;padding: -10px;position:relative;margin:0;margin-top: -100px;overflow-y: scroll;">
+<br><br><br><br>
+  <table class="responsive-table striped" style="float: bottom;position: absolute;">
     <thead >
       <tr><center><h1>Complaints</h1></center></tr>
       <tr>
@@ -203,9 +186,11 @@ table.fixed td { overflow: hidden; }
   </table>
     
 </div>
-
-
 </div>
+<div class="row" style="color: white;"><div class="sol s12">
+  <center><span style="transform: scale(1.2);">&#169;Copyright Team Alchemist, IIT Kharagpur | Smart India Hackathon'17</span></center>
+</div></div>
+
 <script type="text/javascript" src="js/supplier.js"></script>
 </body>
 </html>

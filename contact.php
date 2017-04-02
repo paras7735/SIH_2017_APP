@@ -32,13 +32,13 @@ else if($user->is_logged_in() && $_SESSION['position']==0){
 	
 <body style="background:url(images/4.png);">
 <div class="navbar-fixed" style="height: 50px;">
-<nav style="height: 50px;line-height: 50px;background-color:rgba(187,28,33,0.9);z-index: 100;">
+<nav style="height: 50px;line-height: 50px;background-color:rgba(187,28,33,0.95);z-index: 100;">
     <div class="nav-wrapper" >
       <a href="supplier.php" class="brand-logo" style="margin-left: 15px;font-family: 'Open Sans', sans-serif;font-size: 1.2rem;">Alchemist</a>
       <ul id="nav-mobile" class="right hide-on-med-and-down" style="font-family: 'Open Sans', sans-serif;">
-        <li><a href="sass.html">Profile</a></li>
-        <li><a href="contact.php">Contact List</a></li>
-        <li><a id="lout">Logout</a></li>
+        <li><a href="profile.html"><img src="images/user.png" style="transform: scale(0.6);float: left;margin-top: 0px;left: -10px;"> Profile</a></li>
+        <li><a href="contact.php"><img src="images/contact.png" style="transform: scale(0.95);float: left;margin-top: 10px;margin-left: -2px;">Contact List</a></li>
+        <li><a id="lout"><img src="images/logout1.png" style="float: left;margin-left: -5px;margin-top: 12px;">Logout</a></li>
       </ul>
     </div>
   </nav>
