@@ -40,8 +40,8 @@ Class User {
     }
     public function enter_readings($level,$parent,$level_index,$home,$quality,$quantity,$userId){
         try{
-            $query1 = $this->_db->prepare('UPDATE nodes SET quality=:quality,quantity=:quantity,userId=:userId WHERE level=:level AND level_index=:level_index');
-            $query1->execute(array(':quality'=>$quality,':quantity'=>$quantity,':level'=>$level,':level_index'=>$level_index,':userId'=>'$userId'));
+            $query1 = $this->_db->prepare('UPDATE nodes SET quality=:quality,quantity=:quantity WHERE level=:level AND level_index=:level_index');
+            $query1->execute(array(':quality'=>$quality,':quantity'=>$quantity,':level'=>$level,':level_index'=>$level_index));
             $query1->rowCount();
             return true;
 

@@ -9,7 +9,7 @@ else if($user->is_logged_in() && $_SESSION['position']==1){
 else if($user->is_logged_in() && $_SESSION['position']==0){
 	header('Location: user.php');
 }
-echo $_SESSION['uname'];
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -23,6 +23,7 @@ echo $_SESSION['uname'];
 	<link rel="stylesheet" href="css/index.css">
 </head>
 <body>
+<center><h1>Admin</h1></center>
 <div class="row">
     <form class="col s10" id="form1">
       <div class="row">

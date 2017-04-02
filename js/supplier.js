@@ -7,8 +7,6 @@ $(document).ready(function(){
     messagingSenderId: "1027182829065"
   };
   firebase.initializeApp(config);
-
-
  var k={};
  var string='';
   console.log(firebase);
@@ -24,8 +22,8 @@ ref.on("value", function(snapshot) {
 
 
     }
-    console.log(arr[k[0]]);
-    console.log(arr[k[1]]);
+    // console.log(arr[k[0]]);
+    // console.log(arr[k[1]]);
    for (var i = 0; i < size; i++) {
      string+="<tr><td>"+arr[k[i]]['contact']+"</td><td>"+arr[k[i]]['email']+"</td><td>"+arr[k[i]]['message']+"</td><td>"+arr[k[i]]['type']+"</td></tr>";
    }
@@ -71,6 +69,40 @@ $(".button-collapse").sideNav();
   );
 
 function dbupdate() {
+    var ref2 = firebase.database().ref("/table/nodes");
+var m=0,string3;
+var nodes2 = {};
+
+ref2.on("value", function(snapshot) {
+  string='';
+  var nodes=snapshot.val();
+// console.log(nodes[0]);
+    for(var i=0;i<nodes.length;i++){
+          quality5=parseFloat(nodes[i]["quality"]);
+          nodes2[m]={"parent":nodes[i]["parent"],"quality":quality5,"id":parseInt(nodes[i]["Id"])};
+          m++;
+          // console.log(nodes2[i]);
+    }
+    for(var k=1;k<m;k++){
+      i=-1;
+      i=nodes2[k]['parent'];
+      // console.log(i);
+     string3='';
+      if(i!=-1){
+         qual_parent=parseFloat(nodes[i]["quality"]);
+        if(nodes2[k]['quality']!=qual_parent){
+          hid=nodes2[k]['id'];
+          qual2=nodes2[k]['quality'];
+          string3 += "<tr><td>"+i+"</td><td>"+hid+"</td><td>"+qual2+"</td></tr>";
+        }
+      }
+    }
+    $('#tableBody').html(string3);
+
+}, function (error) {
+   console.log("Error: " + error.code);
+});
+
   $.ajax({
     type: "POST",
     url: "controller/dbupdate.php",
@@ -86,11 +118,11 @@ function dbupdate() {
       
       // var response=qualitydrop_home(nodes,arr.length);
       // $('#tableBody').html(response);
-      var response2=theft(nodes,arr.length);
-      $('#tableBody2').html(response2);
-      var response3=qualitydrop_source(nodes,arr.length);
-      $('#tableBody').html(response3);
-
+      var response2=[];
+      response2=theft(nodes,arr.length);
+      console.log(response2);
+      $('#tableBody2').html(response2.join(""));
+      // $('#tableBody2').html(response2);
     },
     error: function(result) {
       console.log('kjbklj');
@@ -117,25 +149,77 @@ function dbupdate() {
 
     }
   }
+  var n=1;
+  var array_faulty=[];
   for(var k=1;k<m+1;k++){
+
     i=nodes2[k]['parent'];
     if(i!=-1){
+      var sum=0;
       // console.log(i+"--"+nodes2[k]['sum']+"--"+nodes[i]['quantity']);
       if(nodes2[k]['sum']!=nodes[i]['quantity']){
         diff=(-parseInt(nodes2[k]['sum'])+parseInt(nodes[i]['quantity']));
-    // msg[i] = { "id":i}
-    //the i here will give the id of the meter after which there is a leakage
+        if(parseInt(diff)<0){
+          console.log(diff);
+          var par=nodes[i]['parent'];
+          console.log(par);
+          for (var z = 0; z < length; z++) {
+            if(parseInt(nodes[z]['id'])==parseInt(par)){
 
-        // console.log("please check line after meter with id(theft):-"+i);
-        string2 += "<tr><td>"+i+"</td><td>"+diff+"</td></tr>";
+              var par_data=parseInt(nodes[z]['quantity']);
+              console.log(par_data);
+            }
+            if(parseInt(nodes[z]['parent'])==parseInt(par)){
+              sum+=parseInt(nodes[z]['quantity']);
+            }
+          }
+          var abc=parseInt(sum)-parseInt(diff);
+          console.log(sum);
+          console.log(abc);
+          if(parseInt(abc)==parseInt(par_data)){
+            console.log("Meter is faulty "+nodes[i]['id']);
+            string2="<tr><td>Meter "+nodes[i]['id']+" is faulty.</td><td></td></tr>";
+            array_faulty.pop();
+            array_faulty.push(string2);
+            continue;
+          }
+          
+        }
+        if(parseInt(diff)>0){
+          console.log(diff);
+          var par=nodes[i]['parent'];
+          console.log(par);
+          for (var z = 0; z < length; z++) {
+            if(parseInt(nodes[z]['id'])==parseInt(par)){
+
+              var par_data=parseInt(nodes[z]['quantity']);
+              console.log(par_data);
+            }
+            if(parseInt(nodes[z]['parent'])==parseInt(par)){
+              sum+=parseInt(nodes[z]['quantity']);
+            }
+          }
+          var abc=parseInt(sum)+parseInt(diff);
+          console.log(sum);
+          console.log(abc);
+          if(parseInt(abc)==parseInt(par_data)){
+            console.log("Meter is faulty "+nodes[i]['id']);
+            string2="<tr><td>Meter "+nodes[i]['id']+" is faulty.</td><td></td></tr>";
+            array_faulty.pop();
+            array_faulty.push(string2);
+            continue;
+          }
+          
+        }
+
+        string2 = "<tr><td>"+i+"</td><td>"+diff+"</td></tr>";
+        array_faulty.push(string2);
       }
     }else{
-      // console.log(i+"--"+nodes2[k]['sum']+"--"+nodes[0]['quantity'])
-      // console.log(i+"--"+nodes2[k]['sum']+"--"+nodes[0]['quantity'])
     }
   }
   //console.log("after for loop");
-  return string2;
+  return array_faulty;
   }
 
 
@@ -164,36 +248,6 @@ function qualitydrop_home(nodes,length){
   }
   return string;
   }
-
-  function qualitydrop_source(nodes,length){
-    var sum,i,j,quality,string3,qual_parent,hid;
-    var m=0;
-    var nodes2 = {};
-    for(i=0;i<length;i++){
-          quality5=parseFloat(nodes[i]["quality"]);
-          nodes2[m]={"parent":nodes[i]["parent"],"quality":quality5,"id":nodes[i]["id"]};
-          
-          m++;
-    }
-    for(var k=1;k<m;k++){
-      i=nodes2[k]['parent'];
-      
-      qual_parent=parseFloat(nodes[i]["quality"]);
-      if(i!=-1){
-        if(nodes2[k]['quality']!=qual_parent){
-          hid=nodes2[k]['id'];
-          qual2=nodes2[k]['quality'];
-          string3 += "<tr><td>"+i+"</td><td>"+hid+"</td><td>"+qual2+"</td></tr>";
-        }
-      }
-    }
-    return string3;
-  }
-
-
-
-  
-  
 
   $("#lout").click(function(){
    $.ajax({
