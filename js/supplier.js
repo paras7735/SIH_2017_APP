@@ -1,11 +1,82 @@
 $(document).ready(function(){
+ var config = {
+    apiKey: "AIzaSyBZ1nKewxNC_s53gyd-KSdB7gWseVf1Xmg",
+    authDomain: "sihfinalsiitkgp-5e9c0.firebaseapp.com",
+    databaseURL: "https://sihfinalsiitkgp-5e9c0.firebaseio.com",
+    storageBucket: "sihfinalsiitkgp-5e9c0.appspot.com",
+    messagingSenderId: "1027182829065"
+  };
+  firebase.initializeApp(config);
+
+
+ var k={};
+ var string='';
+  console.log(firebase);
+  var ref = firebase.database().ref("/complaints");
+
+ref.on("value", function(snapshot) {
+  string='';
+  var arr=snapshot.val();
+
+ var size = 0, key;
+    for (key in arr) {
+        if (arr.hasOwnProperty(key)) {k[size]=key;size++;}
+
+
+    }
+    console.log(arr[k[0]]);
+    console.log(arr[k[1]]);
+   for (var i = 0; i < size; i++) {
+     string+="<tr><td>"+arr[k[i]]['contact']+"</td><td>"+arr[k[i]]['email']+"</td><td>"+arr[k[i]]['message']+"</td><td>"+arr[k[i]]['type']+"</td></tr>";
+   }
+   $('#tableBody7').html(string);
+}, function (error) {
+   console.log("Error: " + error.code);
+});
+
+$(function() {
+  $('#quali').hover(function() {
+    $('#quali_bubble').css('opacity', '1');
+  }, function() {
+    // on mouseout, reset the background colour
+    $('#quali_bubble').css('opacity', '0');
+  });
+});
+$(function() {
+  $('#quant').hover(function() {
+    $('#quant_bubble').css('opacity', '1');
+  }, function() {
+    // on mouseout, reset the background colour
+    $('#quant_bubble').css('opacity', '0');
+  });
+});
+$(function() {
+  $('#click-toggle-circle').hover(function() {
+    $('#node6').css('opacity', '1');
+  }, function() {
+    // on mouseout, reset the background colour
+    $('#node6').css('opacity', '0');
+  });
+});
+
+
+$(".button-collapse").sideNav();
+
+   $('.button-collapse').sideNav({
+      menuWidth: 1050, // Default is 300
+      edge: 'left', // Choose the horizontal origin
+      closeOnClick: true, // Closes side-nav on <a> clicks, useful for Angular/Meteor
+      draggable: true // Choose whether you can drag to open on touch screens
+    }
+  );
+
 function dbupdate() {
   $.ajax({
     type: "POST",
     url: "controller/dbupdate.php",
     success: function(data) {
       arr=jQuery.parseJSON(data);
-      console.log(arr);
+      // console.log(arr);
       var nodes = {};
 
       for (var i = 1; i <=arr.length; ++i) {
@@ -101,13 +172,12 @@ function qualitydrop_home(nodes,length){
     for(i=0;i<length;i++){
           quality5=parseFloat(nodes[i]["quality"]);
           nodes2[m]={"parent":nodes[i]["parent"],"quality":quality5,"id":nodes[i]["id"]};
-          console.log(nodes2[m]);
+          
           m++;
     }
     for(var k=1;k<m;k++){
       i=nodes2[k]['parent'];
-      console.log(i);
-
+      
       qual_parent=parseFloat(nodes[i]["quality"]);
       if(i!=-1){
         if(nodes2[k]['quality']!=qual_parent){
@@ -159,4 +229,7 @@ function qualitydrop_home(nodes,length){
   );
 
 
+
+
 });
+

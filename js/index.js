@@ -195,6 +195,37 @@ console.log(i+"--"+nodes2[k]['sum']+"--"+nodes[0]['quantity'])
    });
     }
   
+
+    function qualitydrop_home(nodes,length){
+  var sum,i,j,quality,string;
+  var m=0;
+  var nodes2 = {};
+  for(i=0;i<length;i++){
+      quality=parseFloat(nodes[i]["quality"]);
+      is_home=nodes[i]["is_home"];
+      if (is_home==1) {
+        if(parseFloat(quality)>8 || parseFloat(quality)<6){
+        nodes2[m]={"parent":nodes[i]["parent"],"quality":quality,"id":nodes[i]["id"]};
+        // console.log(nodes2[m]);
+        m++;
+      }
+    }
+  }
+  var player = firebase.database().ref("messages/quality");
+  var msg2 = {};
+  for(var k=0;k<m;k++){
+         i=nodes2[k]['parent'];
+         hid=nodes2[k]['id'];
+         qual=parseFloat(nodes2[k]['quality']);
+         // console.log("Please check line after meter with id(quality load):-"+i+" in the house ID: "+hid);
+         string += "<tr><td>"+i+"</td><td>"+hid+"</td><td>"+qual+"</td></tr>";
+      
+  }
+  return string;
+  }
+
+
+
 function qualitydrop(nodes,length){
   var sum,i,j;
   var m=0;
