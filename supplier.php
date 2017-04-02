@@ -100,13 +100,13 @@ table.fixed td { overflow: hidden; }
 </div>
 </div>
 </a>
-<p style="position:fixed;margin-top: 290px;margin-left: 15px;color: #3B5869;" id="node6">Nodal Network</p>
+<p style="position:fixed;margin-top: 290px;margin-left: 15px;color: #206168;font-weight: bolder;" id="node6">Nodal Network</p>
 </div>
 <div class="row">
 
 <div class="col s12 " style="background-color: rgb(226,34,45);padding: 0;">
 
-  <center><h1 style="color:white;font-family: 'Open Sans', sans-serif;font-size: 3.2rem;padding: 15px;">Potable Water Supply</h1></center>
+  <center><h1 style="color:white;font-size: 3.2rem;padding: 15px;">Potable Water Supply</h1></center>
   </div>
   
 </div>
@@ -186,8 +186,8 @@ table.fixed td { overflow: hidden; }
           </div>
 </footer> -->
 </div>
-<div class="col s4" style="background-color: rgba(255,255,255,0.85);height: 600px;">
-  <table class="striped">
+<div class="col s4" style="background-color: rgba(255,255,255,0.85);height: 600px;padding: 10px;">
+  <table class="responsive-table striped">
     <thead >
       <tr><center><h1>Complaints</h1></center></tr>
       <tr>

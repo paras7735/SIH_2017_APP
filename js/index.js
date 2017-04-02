@@ -54,7 +54,7 @@ $(document).ready(function(){
         nodes
       });
       theft(nodes,arr.length);
-      qualitydrop(nodes,arr.length);
+      qualitydrop_home(nodes,arr.length);
     },
     error: function(result) {
       console.log('kjbklj');
@@ -180,16 +180,7 @@ console.log(i+"--"+nodes2[k]['sum']+"--"+nodes[0]['quantity'])
       //console.log(i+"--"+nodes2[k]['sum']+"--"+nodes[0]['quantity'])
     }
   }
-  //console.log("after for loop");
-
-      
-       
-
-  
-  
-
-
-  
+  //console.log("after for loop");  
   player.set({
    msg
    });
@@ -217,53 +208,59 @@ console.log(i+"--"+nodes2[k]['sum']+"--"+nodes[0]['quantity'])
          i=nodes2[k]['parent'];
          hid=nodes2[k]['id'];
          qual=parseFloat(nodes2[k]['quality']);
+         msg2[i] = { "id":i}
          // console.log("Please check line after meter with id(quality load):-"+i+" in the house ID: "+hid);
          string += "<tr><td>"+i+"</td><td>"+hid+"</td><td>"+qual+"</td></tr>";
       
   }
+player.set({
+   msg2
+   });
+    }
+    
   return string;
   }
 
 
 
-function qualitydrop(nodes,length){
-  var sum,i,j;
-  var m=0;
-  var nodes2 = {};
-  var parentids= [];
-  for(i=0;i<length;i++){
-    sum=0;
-     if(parentids.indexOf(nodes[i]["parent"])==-1){
-      parentids[m++]=nodes[i]["parent"];
-      quality=parseInt(nodes[i]["quality"]);
-      nodes2[m]={"parent":nodes[i]["parent"],"quality":quality,"id":nodes[i]["id"]}
-    }
-  }
-  var player = firebase.database().ref("messages/quality");
-  var msg2 = {};
-  for(var k=1;k<m+1;k++){
-    i=nodes2[k]['parent'];
-    if(i!=-1){
-      console.log(i+"--"+nodes2[k]['sum']+"--"+nodes[i]['quality']);
-      if(nodes2[k]['quality']!=nodes[i]['quality']){
+// function qualitydrop(nodes,length){
+//   var sum,i,j;
+//   var m=0;
+//   var nodes2 = {};
+//   var parentids= [];
+//   for(i=0;i<length;i++){
+//     sum=0;
+//      if(parentids.indexOf(nodes[i]["parent"])==-1){
+//       parentids[m++]=nodes[i]["parent"];
+//       quality=parseInt(nodes[i]["quality"]);
+//       nodes2[m]={"parent":nodes[i]["parent"],"quality":quality,"id":nodes[i]["id"]}
+//     }
+//   }
+//   var player = firebase.database().ref("messages/quality");
+//   var msg2 = {};
+//   for(var k=1;k<m+1;k++){
+//     i=nodes2[k]['parent'];
+//     if(i!=-1){
+//       console.log(i+"--"+nodes2[k]['sum']+"--"+nodes[i]['quality']);
+//       if(nodes2[k]['quality']!=nodes[i]['quality']){
         
-    msg2[i] = { "id":i}
-        //the i here will give the id of the meter after which there is a leakage
-        z=nodes2[k]['id'];
-        console.log("Please check line after meter with id(quality load):-"+i+" in the house ID: "+z);
-      }
-    }else{
-      console.log(i+"--"+nodes2[k]['sum']+"--"+nodes[0]['quality'])
-      console.log(i+"--"+nodes2[k]['sum']+"--"+nodes[0]['quality'])
-    }
-  }
-  //console.log("after for loop");
+//     msg2[i] = { "id":i}
+//         //the i here will give the id of the meter after which there is a leakage
+//         z=nodes2[k]['id'];
+//         console.log("Please check line after meter with id(quality load):-"+i+" in the house ID: "+z);
+//       }
+//     }else{
+//       console.log(i+"--"+nodes2[k]['sum']+"--"+nodes[0]['quality'])
+//       console.log(i+"--"+nodes2[k]['sum']+"--"+nodes[0]['quality'])
+//     }
+//   }
+//   //console.log("after for loop");
 
      
-  player.set({
-   msg2
-   });
-    }
+//   player.set({
+//    msg2
+//    });
+//     }
 
   });
 
